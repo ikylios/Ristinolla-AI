@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+
+mainClassName = 'ristinolla.Main'
+
+repositories {
+    jcenter()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+}
+
+check.dependsOn jacocoTestReport
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}

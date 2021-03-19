@@ -1,3 +1,5 @@
 # Ristinolla-AI
 
-this is a readme
+[Määrittelydokumentti]()
+
+[Viikkoraportit]()
