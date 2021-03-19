@@ -1,5 +1,5 @@
 # Ristinolla-AI
 
-[Määrittelydokumentti]()
+[Määrittelydokumentti](https://github.com/ikylios/Ristinolla-AI/blob/main/dokumentaatio/Maarittelydokumentti.md)
 
-[Viikkoraportit]()
+[Viikkoraportit](https://github.com/ikylios/Ristinolla-AI/blob/main/dokumentaatio/Viikkoraportit.md)
