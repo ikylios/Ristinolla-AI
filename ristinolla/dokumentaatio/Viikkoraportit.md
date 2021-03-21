@@ -6,4 +6,4 @@ Torstaina mietin aihetta, ja päädyn ristinolla-tekoälyyn (2h).Perjantaina ets
 
 ## Viikko 2
 
-La: tekstikäyttöliittymän työstämistä (2h). Su: pelisilmukan luominen (3h).
+La: tekstikäyttöliittymän työstämistä (2h). Su: pelisilmukan luominen (5h).

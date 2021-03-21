@@ -16,7 +16,7 @@ public class UI {
     void kaynnista() {
        peli = new Pelilogiikka(); 
 
-       System.out.println("Tervetuloa pelaamaan. Aloitetaan.\n");
+       System.out.println("\nTervetuloa pelaamaan. Aloitetaan.\n");
 
        pelaa();
     }
@@ -24,19 +24,24 @@ public class UI {
     void pelaa() {
         while(peli.onKesken()) {
             tulostaLauta();
-            System.out.println(peli.getVuoro() + "-merkin vuoro.");
             String syöte = "";
-            System.out.println("Syötä ruudun numero, jonne haluat sijoittaa merkin " + peli.getVuoro() + ":");
-            syöte = lukija.nextLine();
-//            tarkistaSyöte();
-//            asetaSiirto();
-            peli.toggleVuoro();
+            while (true) {
+                System.out.println(peli.getVuoro() + "-merkin vuoro.");
+                System.out.println("Syötä ruudun numero, jonne haluat sijoittaa merkin " + peli.getVuoro() + ":");
+                syöte = lukija.nextLine();
+                if (peli.onnistunutSiirto(syöte)) {
+                    peli.toggleVuoro();
+                    break;
+                } else {
+                    System.out.println("\nVäärä siirto! Yritä uudestaan.\n");
+                }
+            }
         }
     }
 
 
     void tulostaLauta() {
-       int[][] lauta = peli.getLauta();
+       String[][] lauta = peli.getLauta();
 
        System.out.println("------------------\n");
        String rivit = "";
