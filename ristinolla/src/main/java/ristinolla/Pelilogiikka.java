@@ -8,7 +8,7 @@ public class Pelilogiikka {
     private int sivunpituus;
     private int pieninIndeksi;
     private int suurinIndeksi;
-    private String[] indeksit;
+//    private String[] indeksit;
 
     public Pelilogiikka() {
 //        sivunPituus = 3;
@@ -25,12 +25,13 @@ public class Pelilogiikka {
         pieninIndeksi = 0;
         suurinIndeksi = luku;
 
+        /*
         // Luo taulukon, jossa kaikkien mahdollisten indeksien arvot
         indeksit = new String[suurinIndeksi];
         for (int i = 0; i < indeksit.length; i++) {
             indeksit[i] = "" + i;
         }
-
+        */
 
         onKesken = true;
         Ovuoro = false;
@@ -42,16 +43,13 @@ public class Pelilogiikka {
         if (onValidiIndeksi(ruutunumero)) {
             for (int i = 0; i < sivunPituus; i++) {
                 for (int j = 0; j < sivunPituus; j++) {
-                    
                     String laudanNumero = lauta[j][i];
 //                    System.out.println("laudannumero: " + laudanNumero + ", ruutunumero: " + ruutunumero);
-                     
                     if (laudanNumero.equals(ruutunumero)) {
 //                        System.out.println("laudannumero ja ruudunnumero samat");
-                        if (onValidiIndeksi(laudanNumero)) {
-                            lauta[j][i] = getVuoro();
-                            return true;
-                        }
+                        lauta[j][i] = getVuoro();
+                        toggleVuoro();
+                        return true;
                     }
                 }
             }
@@ -77,8 +75,9 @@ public class Pelilogiikka {
                return true;
            }
         } catch (Exception e) {
-            return false;
+        
         }
+        
         return false;
     }
 

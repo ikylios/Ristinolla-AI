@@ -6,8 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner lukija = new Scanner(System.in);
-        UI ui = new UI(lukija);
+        UI ui = new UI();
         ui.kaynnista();
     }
     
