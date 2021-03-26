@@ -51,6 +51,7 @@ public class UI {
         }
         System.out.println("Lopullinen lauta:\n");
         tulostaLauta();
+        lukija.close();
     }
 
 
