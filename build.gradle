@@ -9,13 +9,6 @@ repositories {
     jcenter()
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-
-}
 
 check.dependsOn jacocoTestReport
 
@@ -25,4 +18,11 @@ dependencies {
 
 run {
     standardInput = System.in
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }
