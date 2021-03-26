@@ -1,2 +1,0 @@
-ristinolla/LogiikkaTest.java
- ristinolla.LogiikkaTest
