@@ -1,4 +1,4 @@
-package ristinolla;
+package ignoreTests;
 
 import java.util.Scanner;
 
