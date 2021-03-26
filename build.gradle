@@ -10,8 +10,6 @@ repositories {
 }
 
 
-check.dependsOn jacocoTestReport
-
 dependencies {
     testCompile 'junit:junit:4.12'
 }
@@ -26,3 +24,5 @@ jacocoTestReport {
         html.enabled true
     }
 }
+
+check.dependsOn jacocoTestReport
