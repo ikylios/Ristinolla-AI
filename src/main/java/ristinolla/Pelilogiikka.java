@@ -36,7 +36,6 @@ public class Pelilogiikka {
         for (int i = 0; i < indeksit.length; i++) {
             indeksit[i] = "" + i;
         }
-        */
 
         onKesken = true;
         Ovuoro = false;
