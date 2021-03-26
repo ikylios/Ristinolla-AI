@@ -1,5 +1,5 @@
-.gradle/
-build/
+ristinolla/.gradle/
+ristinolla/build/
 
 .project/
 .settings/
