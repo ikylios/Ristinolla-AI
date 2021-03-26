@@ -18,6 +18,11 @@ run {
     standardInput = System.in
 }
 
+task myJavadocs(type: Javadoc) {
+  source = sourceSets.main.allJava
+  
+}
+
 jacocoTestReport {
     reports {
         xml.enabled true

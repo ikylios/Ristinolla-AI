@@ -29,8 +29,9 @@ public class Pelilogiikka {
         vapaatRuudut = sivunPituus*sivunPituus;
         voittotilanne = "";
 
-        /*
-        // Luo taulukon, jossa kaikkien mahdollisten indeksien arvot
+        /**
+         * Luo taulukon, jossa kaikkien mahdollisten indeksien arvot
+         */
         indeksit = new String[suurinIndeksi];
         for (int i = 0; i < indeksit.length; i++) {
             indeksit[i] = "" + i;
@@ -41,6 +42,12 @@ public class Pelilogiikka {
         Ovuoro = false;
     }  
 
+    /**
+     * Palauttaa true, jos onnistuneesti saatu asetettua X tai O 
+     * laudalle. Vähentää vapaiden ruutujen lukumäärää, tarkistaa
+     * onko kumpikaan pelaaja voittanut, sekä togglaa vuoron 
+     * toiselle merkille.
+    */
     public boolean onnistunutSiirto(String ruutunumero) {
         int sivunPituus = 3;
 
@@ -63,7 +70,9 @@ public class Pelilogiikka {
         return false;
     }
 
-    // Tarkistaa, onko syöte validien indeksien taulukossa
+    /**
+     * Tarkistaa, onko annettu ruutu vapaana.
+    */
     public boolean onValidiIndeksi(String syöte) {
         /*
         for (int i = 0; i < indeksit.length; i++)  {
@@ -87,6 +96,11 @@ public class Pelilogiikka {
         return false;
     }
 
+    /**
+     * Määrittää, päättyikö peli X-merkin voittoon, 
+     * O-merkin voittoon vai tasapeliin. Muuttaa 
+     * voittotilanne-muuttujan voittokondition perusteella.
+    */
     public void tarkistaVoittotilanne() {
         String tulos = "";
         if (vapaatRuudut == 0) {
