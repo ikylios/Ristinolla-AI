@@ -1,6 +1,6 @@
-/ristinolla/.gradle
-/ristinolla/build
+/ristinolla/.gradle/
+/ristinolla/build/
 
-.project/
-.settings/
-bin/
+/ristinolla/.project/
+/ristinolla/.settings/
+ristinolla/bin/
