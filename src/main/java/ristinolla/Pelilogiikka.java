@@ -29,13 +29,13 @@ public class Pelilogiikka {
         vapaatRuudut = sivunPituus*sivunPituus;
         voittotilanne = "";
 
-        /**
-         * Luo taulukon, jossa kaikkien mahdollisten indeksien arvot
-         */
+        /*
+        // Luo taulukon, jossa kaikkien mahdollisten indeksien arvot
         indeksit = new String[suurinIndeksi];
         for (int i = 0; i < indeksit.length; i++) {
             indeksit[i] = "" + i;
         }
+        */
 
         onKesken = true;
         Ovuoro = false;
