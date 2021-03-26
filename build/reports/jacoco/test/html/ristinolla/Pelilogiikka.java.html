@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pelilogiikka.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ristinolla</a> &gt; <a href="index.source.html" class="el_package">ristinolla</a> &gt; <span class="el_source">Pelilogiikka.java</span></div><h1>Pelilogiikka.java</h1><pre class="source lang-java linenums">package ristinolla;
+
+public class Pelilogiikka {
+
+    private String[][] lauta;
+    private boolean onKesken;
+    private boolean Ovuoro;
+    private int sivunpituus;
+    private int pieninIndeksi;
+    private int suurinIndeksi;
+    private int vapaatRuudut;
+    private String voittotilanne;
+//    private String[] indeksit;
+
+<span class="fc" id="L15">    public Pelilogiikka() {</span>
+//        sivunPituus = 3;
+<span class="fc" id="L17">        int sivunPituus = 3;</span>
+
+<span class="fc" id="L19">        lauta = new String[sivunPituus][sivunPituus];</span>
+<span class="fc" id="L20">        int luku = 0;</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        for (int i = 0; i &lt; sivunPituus; i++) {</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">            for (int j = 0; j &lt; sivunPituus; j++) {</span>
+<span class="fc" id="L23">                lauta[j][i] = &quot;&quot; + luku;</span>
+<span class="fc" id="L24">                luku++;</span>
+            }
+        }
+<span class="fc" id="L27">        pieninIndeksi = 0;</span>
+<span class="fc" id="L28">        suurinIndeksi = luku;</span>
+<span class="fc" id="L29">        vapaatRuudut = sivunPituus*sivunPituus;</span>
+<span class="fc" id="L30">        voittotilanne = &quot;&quot;;</span>
+
+        /*
+        // Luo taulukon, jossa kaikkien mahdollisten indeksien arvot
+        indeksit = new String[suurinIndeksi];
+        for (int i = 0; i &lt; indeksit.length; i++) {
+            indeksit[i] = &quot;&quot; + i;
+        }
+        */
+
+<span class="fc" id="L40">        onKesken = true;</span>
+<span class="fc" id="L41">        Ovuoro = false;</span>
+<span class="fc" id="L42">    }  </span>
+
+    public boolean onnistunutSiirto(String ruutunumero) {
+<span class="fc" id="L45">        int sivunPituus = 3;</span>
+
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (onValidiIndeksi(ruutunumero)) {</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            for (int i = 0; i &lt; sivunPituus; i++) {</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">                for (int j = 0; j &lt; sivunPituus; j++) {</span>
+<span class="fc" id="L50">                    String laudanNumero = lauta[j][i];</span>
+//                    System.out.println(&quot;laudannumero: &quot; + laudanNumero + &quot;, ruutunumero: &quot; + ruutunumero);
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                    if (laudanNumero.equals(ruutunumero)) {</span>
+//                        System.out.println(&quot;laudannumero ja ruudunnumero samat&quot;);
+<span class="fc" id="L54">                        lauta[j][i] = getVuoro();</span>
+<span class="fc" id="L55">                        vapaatRuudut--;</span>
+<span class="fc" id="L56">                        tarkistaVoittotilanne();</span>
+<span class="fc" id="L57">                        toggleVuoro();</span>
+<span class="fc" id="L58">                        return true;</span>
+                    }
+                }
+            }
+        }
+<span class="fc" id="L63">        return false;</span>
+    }
+
+    // Tarkistaa, onko syöte validien indeksien taulukossa
+    public boolean onValidiIndeksi(String syöte) {
+        /*
+        for (int i = 0; i &lt; indeksit.length; i++)  {
+            if (indeksit[i].equals(syöte)) {
+               return true;
+            }
+        }
+        
+        return false;
+        */
+
+        try {
+<span class="fc" id="L79">           int syöteArvo = Integer.parseInt(syöte);</span>
+<span class="pc bpc" id="L80" title="2 of 4 branches missed.">           if (syöteArvo &gt;= pieninIndeksi &amp;&amp; syöteArvo &lt;= suurinIndeksi) {</span>
+<span class="fc" id="L81">               return true;</span>
+           }
+<span class="nc" id="L83">        } catch (Exception e) {</span>
+        
+<span class="nc" id="L85">        }</span>
+        
+<span class="nc" id="L87">        return false;</span>
+    }
+
+    public void tarkistaVoittotilanne() {
+<span class="fc" id="L91">        String tulos = &quot;&quot;;</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (vapaatRuudut == 0) {</span>
+<span class="fc" id="L93">            tulos = &quot;tasapeli&quot;;</span>
+<span class="fc" id="L94">            voittotilanne = tulos;</span>
+<span class="fc" id="L95">            onKesken = false;</span>
+        }
+
+
+<span class="fc" id="L99">    }</span>
+
+
+    public void toggleVuoro() {
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        Ovuoro = !Ovuoro;</span>
+<span class="fc" id="L104">    }</span>
+
+    public boolean pelaajanVuoro() {
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (getVuoro().equals(&quot;X&quot;)) {</span>
+<span class="fc" id="L108">            return true;</span>
+        }
+<span class="fc" id="L110">        return false;</span>
+    }
+
+    public String getVuoro() {
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (Ovuoro) {</span>
+<span class="fc" id="L115">            return &quot;O&quot;;</span>
+        }
+<span class="fc" id="L117">        return &quot;X&quot;;</span>
+    }
+
+    public boolean onKesken() {
+<span class="nc" id="L121">        return onKesken;</span>
+    }
+
+    public String getVoittotilanne() {
+<span class="fc" id="L125">        return voittotilanne;</span>
+    }
+
+    public String[][] getLauta() {
+<span class="fc" id="L129">        return lauta;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ristinolla.LogiikkaTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-03-26T13:05:25" hostname="lx8-fuxi087" time="0.049">
+  <properties/>
+  <testcase name="pelaajanMerkkiOnX" classname="ristinolla.LogiikkaTest" time="0.036"/>
+  <testcase name="alustaaLaudanOikein" classname="ristinolla.LogiikkaTest" time="0.004"/>
+  <testcase name="eiSalliSijoitustaVarattuunRuutuun" classname="ristinolla.LogiikkaTest" time="0.002"/>
+  <testcase name="vaihtaaVuoroaOikein" classname="ristinolla.LogiikkaTest" time="0.002"/>
+  <testcase name="salliiSijoituksenVapaaseenRuutuun" classname="ristinolla.LogiikkaTest" time="0.0"/>
+  <testcase name="voittotilanneTasapeliKunLautaTäynnä" classname="ristinolla.LogiikkaTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
