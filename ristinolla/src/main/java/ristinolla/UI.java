@@ -29,19 +29,34 @@ public class UI {
                 System.out.println("Syötä ruudun numero, jonne haluat sijoittaa merkin " + peli.getVuoro() + ":");
                 syöte = lukija.nextLine();
                 if (peli.onnistunutSiirto(syöte)) {
+                    System.out.println("---------------------\n");
                     break;
                 } else {
                     System.out.println("\nVäärä siirto! Yritä uudestaan.\n");
                 }
             }
         }
+        peliOhi();
+    }
+
+    public void peliOhi() {
+        switch (peli.getVoittotilanne()) {
+            case "tasapeli":
+                System.out.println("Tasapeli!");
+                break;
+        
+            default:
+                System.out.println("Jotain outoa tapahtui.");
+                break;
+        }
+        System.out.println("Lopullinen lauta:\n");
+        tulostaLauta();
     }
 
 
     public void tulostaLauta() {
        String[][] lauta = peli.getLauta();
 
-       System.out.println("---------------------\n");
        String rivit = "";
         for (int i = 0; i < lauta.length; i++) {
             rivit += "  | ";

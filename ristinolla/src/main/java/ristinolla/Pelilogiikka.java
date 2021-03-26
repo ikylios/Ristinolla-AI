@@ -8,6 +8,8 @@ public class Pelilogiikka {
     private int sivunpituus;
     private int pieninIndeksi;
     private int suurinIndeksi;
+    private int vapaatRuudut;
+    private String voittotilanne;
 //    private String[] indeksit;
 
     public Pelilogiikka() {
@@ -24,6 +26,8 @@ public class Pelilogiikka {
         }
         pieninIndeksi = 0;
         suurinIndeksi = luku;
+        vapaatRuudut = sivunPituus*sivunPituus;
+        voittotilanne = "";
 
         /*
         // Luo taulukon, jossa kaikkien mahdollisten indeksien arvot
@@ -48,6 +52,8 @@ public class Pelilogiikka {
                     if (laudanNumero.equals(ruutunumero)) {
 //                        System.out.println("laudannumero ja ruudunnumero samat");
                         lauta[j][i] = getVuoro();
+                        vapaatRuudut--;
+                        tarkistaVoittotilanne();
                         toggleVuoro();
                         return true;
                     }
@@ -81,6 +87,18 @@ public class Pelilogiikka {
         return false;
     }
 
+    public void tarkistaVoittotilanne() {
+        String tulos = "";
+        if (vapaatRuudut == 0) {
+            tulos = "tasapeli";
+            voittotilanne = tulos;
+            onKesken = false;
+        }
+
+
+    }
+
+
     public void toggleVuoro() {
         Ovuoro = !Ovuoro;
     }
@@ -101,6 +119,10 @@ public class Pelilogiikka {
 
     public boolean onKesken() {
         return onKesken;
+    }
+
+    public String getVoittotilanne() {
+        return voittotilanne;
     }
 
     public String[][] getLauta() {
