@@ -46,14 +46,23 @@ public class LogiikkaTest {
     }
 
     @Test
-    public void salliiValidinSijoituksen() {
+    public void salliiSijoituksenVapaaseenRuutuun() {
         assertTrue(peli.onnistunutSiirto("4"));
     }
 
     @Test
-    public void eiSalliVarattuaSijoitusta() {
+    public void eiSalliSijoitustaVarattuunRuutuun() {
         peli.onnistunutSiirto("4");
         assertFalse(peli.onnistunutSiirto("4"));
+    }
+
+    @Test
+    public void voittotilanneTasapeliKunLautaTäynnä() {
+        String syöte = "480352176";
+        for (int i = 0; i < syöte.length(); i++) {
+            peli.onnistunutSiirto(syöte.substring(i, i+1));
+        }
+        assertEquals("tasapeli", peli.getVoittotilanne());
     }
 
 

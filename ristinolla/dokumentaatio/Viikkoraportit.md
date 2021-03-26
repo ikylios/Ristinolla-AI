@@ -6,4 +6,4 @@ Torstaina mietin aihetta, ja päädyn ristinolla-tekoälyyn (2h).Perjantaina ets
 
 ## Viikko 2
 
-La: tekstikäyttöliittymän työstämistä (2h). Su: pelisilmukan luominen (5h). Ti: pelilogiikan testien luominen (2h).
+Lauantaina tekstikäyttöliittymän työstämistä (2h). Sunnuntaina pelisilmukan luominen (5h). Ohjelma vastaanottaa indeksiarvon ja osaa sijoittaa annettuun ruutuun oikean merkin. Tiistaina muutaman pelilogiikan yksikkötestin luominen (2h). Keskiviikkona ja torstaina tutkintaa ja pohdintaa voittotilanteen ratkaisemisesta (5h). Lauantaina ohjelmaan alkeellinen pelin voittotilanteiden tunnistaminen. Osaa tunnistaa tasapelin, kun vapaat ruudut loppuvat. Lisättiin testi tätä varten (3h). 
