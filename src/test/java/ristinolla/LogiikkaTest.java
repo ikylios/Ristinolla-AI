@@ -65,5 +65,28 @@ public class LogiikkaTest {
         assertEquals("tasapeli", peli.getVoittotilanne());
     }
 
+    @Test
+    public void xVoittoRivilla() {
+        String syöte = "41325";
+        for (int i = 0; i < syöte.length(); i++) {
+            peli.onnistunutSiirto(syöte.substring(i, i+1));
+        }
+        assertEquals("X", peli.getVoittotilanne());
+    }
 
+    @Test
+    public void oVoittoSarakkeella() {
+        String syöte = "456218";
+        for (int i = 0; i < syöte.length(); i++) {
+            peli.onnistunutSiirto(syöte.substring(i, i+1));
+        }
+    }
+    
+    @Test
+    public void xVoittoDiagonaalilla() {
+        String syöte = "845276";
+        for (int i = 0; i < syöte.length(); i++) {
+            peli.onnistunutSiirto(syöte.substring(i, i+1));
+        }
+    }
 }

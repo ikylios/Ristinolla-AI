@@ -21,7 +21,7 @@ public class UI {
     }
 
     public void pelaa() {
-        while(peli.onKesken()) {
+        while (peli.onKesken()) {
             tulostaLauta();
             String syöte = "";
             while (true) {
@@ -44,7 +44,12 @@ public class UI {
             case "tasapeli":
                 System.out.println("Tasapeli!");
                 break;
-        
+            case "X":
+                System.out.println("X voitti!");
+                break;
+            case "O":
+                System.out.println("O voitti!");
+                break;
             default:
                 System.out.println("Jotain outoa tapahtui.");
                 break;

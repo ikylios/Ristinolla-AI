@@ -5,7 +5,7 @@ public class Pelilogiikka {
     private String[][] lauta;
     private boolean onKesken;
     private boolean Ovuoro;
-    private int sivunpituus;
+    private int sivunPituus;
     private int pieninIndeksi;
     private int suurinIndeksi;
     private int vapaatRuudut;
@@ -13,8 +13,7 @@ public class Pelilogiikka {
 //    private String[] indeksit;
 
     public Pelilogiikka() {
-//        sivunPituus = 3;
-        int sivunPituus = 3;
+        sivunPituus = 3;
 
         lauta = new String[sivunPituus][sivunPituus];
         int luku = 0;
@@ -48,8 +47,6 @@ public class Pelilogiikka {
      * toiselle merkille.
     */
     public boolean onnistunutSiirto(String ruutunumero) {
-        int sivunPituus = 3;
-
         if (onValidiIndeksi(ruutunumero)) {
             for (int i = 0; i < sivunPituus; i++) {
                 for (int j = 0; j < sivunPituus; j++) {
@@ -59,7 +56,7 @@ public class Pelilogiikka {
 //                        System.out.println("laudannumero ja ruudunnumero samat");
                         lauta[j][i] = getVuoro();
                         vapaatRuudut--;
-                        tarkistaVoittotilanne();
+                        tarkistaVoittotilanne(j, i);
                         toggleVuoro();
                         return true;
                     }
@@ -70,7 +67,8 @@ public class Pelilogiikka {
     }
 
     /**
-     * Tarkistaa, onko annettu ruutu vapaana.
+    * Tarkistaa, onko annettu ruutu vapaana. Ruutu on vapaa, jos
+    * syöte on väliltä [pienin indeksi, suurin indeksi].
     */
     public boolean onValidiIndeksi(String syöte) {
         /*
@@ -91,26 +89,103 @@ public class Pelilogiikka {
         } catch (Exception e) {
         
         }
-        
         return false;
     }
 
     /**
-     * Määrittää, päättyikö peli X-merkin voittoon, 
-     * O-merkin voittoon vai tasapeliin. Muuttaa 
-     * voittotilanne-muuttujan voittokondition perusteella.
+     * Laskee pelaajien pisteet. Määrittää, päättyikö peli X-merkin 
+     * voittoon, O-merkin voittoon vai tasapeliin. Muuttaa 
+     * voittotilanne-muuttujan arvon voittokondition perusteella.
+     * Vaihtaa onKesken-arvon falseksi, sillä peli keskeytyy.
     */
-    public void tarkistaVoittotilanne() {
-        String tulos = "";
-        if (vapaatRuudut == 0) {
-            tulos = "tasapeli";
-            voittotilanne = tulos;
+    public void tarkistaVoittotilanne(int y, int x) {
+        if (laskePisteet(y, x)) {
+            setVoittotilanne(getVuoro());
             onKesken = false;
         }
 
-
+        if (vapaatRuudut == 0) {
+            setVoittotilanne("tasapeli");
+            onKesken = false;
+        }
     }
+    
+    /**
+     * Laskee annetun koordinaatin rivin summan ja sarakkeen summan. 
+     * Tämän jälkeen tarkistaa, onko annettu koordinaatti 
+     * diagonaalilla. Jos koordinaatti on diagonaalilla, laskee 
+     * niiden summat. Jos vähintään yksi näistä summista on yhtä
+     * suuri kuin sivun pituus (3), niin tämän vuoron pelaaja on
+     * voittanut. Tällöin palauttaa true, muutoin false.
+     */
+    public boolean laskePisteet(int y, int x) {
+        
+        // rivi
+        int rivisumma = 0;
+        for (int i = 0; i < sivunPituus; i++) {
+            System.out.println("lauta: " + lauta[i][x]);
+            if (getVuoro().equals(lauta[i][x])) {
+                rivisumma += 1;
+            }
+        }
 
+        // sarake
+        int sarakesumma = 0;
+        for (int i = 0; i < sivunPituus; i++) {
+            if (getVuoro().equals(lauta[y][i])) {
+                sarakesumma += 1;
+            }
+        }
+
+        int diagonaalisumma = 0;
+        int kaanteisdiagonaalisumma = 0;
+        if (onDiagonaalilla(y, x)) {
+            // diagonaali [0,0],[1,1], [2,2]
+            for (int i = 0; i < sivunPituus; i++) {
+                if (getVuoro().equals(lauta[i][i])) {
+                    diagonaalisumma += 1;
+                }
+            }
+
+            // käänteisdiagonaali [0,2], [1,1], [2,0]
+            int j = 0;
+            int i = sivunPituus-1;
+            while (i < sivunPituus) {
+                if (getVuoro().equals(lauta[j][i])) {
+                    kaanteisdiagonaalisumma += 1;
+                }
+                i++;
+                j--;
+            }
+        }
+
+//        System.out.println("rivi:" + rivisumma + ", sarake:" + sarakesumma + ", diag:" +diagonaalisumma + ", kdiag:" + kaanteisdiagonaalisumma);
+
+        if (rivisumma == sivunPituus 
+            || sarakesumma == sivunPituus 
+            || diagonaalisumma == sivunPituus
+            || kaanteisdiagonaalisumma == sivunPituus
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
+     * Tarkistaa, onko annettu koordinaatti diagonaalilla.
+     */
+    public boolean onDiagonaalilla(int y, int x) {
+        // diagonaali: tapaukset [0,2], [1,1] [2,0] 
+        if (y+x == sivunPituus-1) {
+            return true;
+        }
+        // käänteisdiagonaali: tapaukset [0,0], [1,1], [2,2]
+        if (x == y) {
+            return true;
+        }
+        return false;
+    }
 
     public void toggleVuoro() {
         Ovuoro = !Ovuoro;
@@ -136,6 +211,10 @@ public class Pelilogiikka {
 
     public String getVoittotilanne() {
         return voittotilanne;
+    }
+    
+    public void setVoittotilanne(String syote) {
+        voittotilanne = syote;
     }
 
     public String[][] getLauta() {
