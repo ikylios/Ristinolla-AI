@@ -1,20 +1,38 @@
 package ristinolla;
 
+import java.util.Random;
+
 public class Pelilogiikka {
 
     private String[][] lauta;
     private boolean onKesken;
-    private boolean Ovuoro;
+    private boolean oVuoro;
     private int sivunPituus;
     private int pieninIndeksi;
     private int suurinIndeksi;
     private int vapaatRuudut;
     private String voittotilanne;
+//    private Tekoaly konepelaaja1;
+//    private Tekoaly konepelaaja2;
 //    private String[] indeksit;
 
-    public Pelilogiikka() {
+    public Pelilogiikka(int ihmispelaajienMaara) {
         sivunPituus = 3;
-
+/*
+        switch (ihmispelaajienMaara) {
+            case 1:
+                konepelaaja1 = new Tekoaly();
+                break;
+            
+            case 2:
+                konepelaaja1 = new Tekoaly();
+                konepelaaja2 = new Tekoaly();
+                break;
+            
+            default:
+                break;
+        }
+*/
         lauta = new String[sivunPituus][sivunPituus];
         int luku = 0;
         for (int i = 0; i < sivunPituus; i++) {
@@ -37,7 +55,7 @@ public class Pelilogiikka {
         */
 
         onKesken = true;
-        Ovuoro = false;
+        oVuoro = false;
     }  
 
     /**
@@ -70,10 +88,10 @@ public class Pelilogiikka {
     * Tarkistaa, onko annettu ruutu vapaana. Ruutu on vapaa, jos
     * syöte on väliltä [pienin indeksi, suurin indeksi].
     */
-    public boolean onValidiIndeksi(String syöte) {
+    public boolean onValidiIndeksi(String syote) {
         /*
         for (int i = 0; i < indeksit.length; i++)  {
-            if (indeksit[i].equals(syöte)) {
+            if (indeksit[i].equals(syote)) {
                return true;
             }
         }
@@ -82,8 +100,8 @@ public class Pelilogiikka {
         */
 
         try {
-           int syöteArvo = Integer.parseInt(syöte);
-           if (syöteArvo >= pieninIndeksi && syöteArvo <= suurinIndeksi) {
+           int syoteArvo = Integer.parseInt(syote);
+           if (syoteArvo >= pieninIndeksi && syoteArvo <= suurinIndeksi) {
                return true;
            }
         } catch (Exception e) {
@@ -123,7 +141,7 @@ public class Pelilogiikka {
         // rivi
         int rivisumma = 0;
         for (int i = 0; i < sivunPituus; i++) {
-            System.out.println("lauta: " + lauta[i][x]);
+//            System.out.println("lauta: " + lauta[i][x]);
             if (getVuoro().equals(lauta[i][x])) {
                 rivisumma += 1;
             }
@@ -150,12 +168,12 @@ public class Pelilogiikka {
             // käänteisdiagonaali [0,2], [1,1], [2,0]
             int j = 0;
             int i = sivunPituus-1;
-            while (i < sivunPituus) {
+            while (j < sivunPituus) {
                 if (getVuoro().equals(lauta[j][i])) {
                     kaanteisdiagonaalisumma += 1;
                 }
-                i++;
-                j--;
+                i--;
+                j++;
             }
         }
 
@@ -187,8 +205,13 @@ public class Pelilogiikka {
         return false;
     }
 
+    public int tekoalySiirto() {
+        Random r = new Random();
+        return r.nextInt(9);
+    }
+
     public void toggleVuoro() {
-        Ovuoro = !Ovuoro;
+        oVuoro = !oVuoro;
     }
 
     public boolean pelaajanVuoro() {
@@ -199,7 +222,7 @@ public class Pelilogiikka {
     }
 
     public String getVuoro() {
-        if (Ovuoro) {
+        if (oVuoro) {
             return "O";
         }
         return "X";

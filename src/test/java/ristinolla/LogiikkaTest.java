@@ -13,7 +13,7 @@ public class LogiikkaTest {
 
     @Before
     public void pelinJaTestilaudanAlustus() {
-        peli = new Pelilogiikka();
+        peli = new Pelilogiikka(2);
         
         sivunPituus = 3;
         testilauta = new String[sivunPituus][sivunPituus];
