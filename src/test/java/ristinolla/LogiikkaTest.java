@@ -73,6 +73,7 @@ public class LogiikkaTest {
         for (int i = 0; i < syöte.length(); i++) {
             peli.onnistunutSiirto(syöte.substring(i, i+1));
         }
+        assertEquals("O", peli.getVoittotilanne());
     }
     
     @Test
@@ -81,5 +82,6 @@ public class LogiikkaTest {
         for (int i = 0; i < syöte.length(); i++) {
             peli.onnistunutSiirto(syöte.substring(i, i+1));
         }
+        assertEquals("O", peli.getVoittotilanne());
     }
 }

@@ -10,3 +10,6 @@ Lauantaina tekstikäyttöliittymän työstämistä (2h). Sunnuntaina pelisilmuka
 
 ## Viikko 3
 Pohdintaa ja tutkimusta ristinollan voittamismekaniikasta, sekä ohjelmointia. Ohjelma osaa nyt tunnistaa voitetun pelin sekä pelin voittajan (6h). Lisäksi muutama testi (1h). Lisätty checkstyle, lisätty joitakin sääntöjä sekä siistitty ohjelmaa sääntöjen mukaisiksi (1h). Hahmoteltu ohjelman rakenteen muutoksia tekoälyn lisäämisen takia(3h). Alkeelliset versiot hahmotelluista muutoksista tehty (pelisilmukkaremontti yms.) (2h)  Pelilogiikalle lisätty metodi, joka on placeholder tekoälyn tekemille siirroille. Yrittää tehdä siirtoa kunnes siirto on laillinen, valitsee satunnaisen ruudun. Korjattu pieni bugi jossa käänteisdiagonaalilta ei huomattu voittoa (1h). Testit päivitetään myöhemmin.
+
+## Viikko 4
+Ohjelma nyt tukee 0-2 tietokonepelaajan pelin. Koodia refaktoroitu ja siistitty muutoksia varten (3h) sekä lisätty testit uusille luokille Ihmispelaaja sekä Tekoälypelaaja (2h).
