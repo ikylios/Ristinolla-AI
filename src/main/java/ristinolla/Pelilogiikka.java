@@ -1,7 +1,5 @@
 package ristinolla;
 
-import java.util.Random;
-
 public class Pelilogiikka {
 
     private String[][] lauta;
@@ -12,27 +10,9 @@ public class Pelilogiikka {
     private int suurinIndeksi;
     private int vapaatRuudut;
     private String voittotilanne;
-//    private Tekoaly konepelaaja1;
-//    private Tekoaly konepelaaja2;
-//    private String[] indeksit;
 
     public Pelilogiikka(int ihmispelaajienMaara) {
         sivunPituus = 3;
-/*
-        switch (ihmispelaajienMaara) {
-            case 1:
-                konepelaaja1 = new Tekoaly();
-                break;
-            
-            case 2:
-                konepelaaja1 = new Tekoaly();
-                konepelaaja2 = new Tekoaly();
-                break;
-            
-            default:
-                break;
-        }
-*/
         lauta = new String[sivunPituus][sivunPituus];
         int luku = 0;
         for (int i = 0; i < sivunPituus; i++) {
@@ -74,6 +54,7 @@ public class Pelilogiikka {
 //                        System.out.println("laudannumero ja ruudunnumero samat");
                         lauta[j][i] = getVuoro();
                         vapaatRuudut--;
+                        System.out.println("vapaatruudut:" + vapaatRuudut);
                         tarkistaVoittotilanne(j, i);
                         toggleVuoro();
                         return true;
@@ -205,20 +186,8 @@ public class Pelilogiikka {
         return false;
     }
 
-    public int tekoalySiirto() {
-        Random r = new Random();
-        return r.nextInt(9);
-    }
-
     public void toggleVuoro() {
         oVuoro = !oVuoro;
-    }
-
-    public boolean pelaajanVuoro() {
-        if (getVuoro().equals("X")) {
-            return true;
-        }
-        return false;
     }
 
     public String getVuoro() {

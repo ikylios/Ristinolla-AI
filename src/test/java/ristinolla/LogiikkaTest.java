@@ -30,14 +30,7 @@ public class LogiikkaTest {
     public void alustaaLaudanOikein() {
         assertEquals(testilauta, peli.getLauta());
     }
-
-    @Test
-    public void pelaajanMerkkiOnX() {
-        assertTrue(peli.pelaajanVuoro());
-        peli.onnistunutSiirto("4");
-        assertFalse(peli.pelaajanVuoro());
-    }
-
+    
     @Test
     public void vaihtaaVuoroaOikein() {
         assertEquals("X", peli.getVuoro());

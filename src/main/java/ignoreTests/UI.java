@@ -1,13 +1,14 @@
 package ignoreTests; 
 
 import java.util.Scanner;
-import ristinolla.Pelilogiikka;
+import ristinolla.*;
+import java.util.*;
 
 public class UI {
 
     private Scanner lukija;
     private Pelilogiikka peli;
-//    private Pelaaja[] pelaajat;
+    private Pelaaja[] pelaajat;
     
     public UI() {
         lukija = new Scanner(System.in);
@@ -17,24 +18,26 @@ public class UI {
         System.out.println("\nTervetuloa pelaamaan ristinollaa.\n");
         String syote = "";
         while (true) {
-            System.out.println("Valitse ihmispelaajien määrä (1-2):");
+            System.out.println("Valitse ihmispelaajien määrä (0-2):");
             syote = lukija.nextLine();
             try {
                 int syoteArvo = Integer.parseInt(syote);
-                if (syoteArvo >= 1 || syoteArvo <= 2) {
-/*                    
-                    Pelaaja[] pelaajat = new pelaajat[1];
-                    pelaajat[0] = new Pelaaja(ihminen);
-                    if (syoteArvo == 1) {
-
+                Pelaaja p1 = new Tekoalypelaaja();
+                Pelaaja p2 = new Tekoalypelaaja();
+                if (syoteArvo > 0) {
+                    p1 = new Ihmispelaaja(lukija);
+                    if (syoteArvo == 2) {
+                        p2 = new Ihmispelaaja(lukija);
                     }
-*/                    
-                    break;
-                } else {}
+                }
+                pelaajat = new Pelaaja[] {p1, p2};
+                break;
             } catch (Exception e) {
                 System.out.println("\nEi sallittu arvo.\n");
             }
-        }
+        }    
+
+//        System.out.println(Arrays.toString(pelaajat));
 
         System.out.println("Aloitetaan!\n");
         peli = new Pelilogiikka(Integer.parseInt(syote)); 
@@ -43,38 +46,21 @@ public class UI {
     }
 
     public void pelaa() {
-/*
-        for (Pelaaja pelaaja : pelaajat) {
-
-        }
-*/
-        while (peli.onKesken()) {            
-            tulostaLauta();
-            String syöte = "";
-
-            // Ihmispelaajan (X-merkki) vuoro
-            while (true) {
-                // Ihmispelaajan (X-merkki) vuoro
+        System.out.println(Arrays.toString(pelaajat));
+        while(peli.onKesken()) {
+            for (Pelaaja pelaaja : pelaajat) {
+                tulostaLauta();
                 System.out.println(peli.getVuoro() + "-merkin vuoro.");
-                System.out.println("Syötä ruudun numero, jonne haluat sijoittaa merkin " + peli.getVuoro() + ":");
-                syöte = lukija.nextLine();
-                if (peli.onnistunutSiirto(syöte)) {
-                    System.out.println("---------------------\n");
-                    break;
-                } else {
-                    System.out.println("\nVäärä siirto! Yritä uudestaan.\n");
+                while (true) {
+                    if (peli.onnistunutSiirto(pelaaja.otaSyote())) {
+                        System.out.println("---------------------\n");
+                        break;
+                    } else {
+                        System.out.println("\nVäärä siirto! Yritä uudestaan.\n");
+                    }
                 }
-            }
-
-            // Konepelaajan (O-merkki) vuoro
-            while (true) {
-                System.out.println(peli.getVuoro() + "-merkin vuoro.");
-                System.out.println("Syötä ruudun numero, jonne haluat sijoittaa merkin " + peli.getVuoro() + ":");
-                if (peli.onnistunutSiirto("" + peli.tekoalySiirto())) {
-                    System.out.println("---------------------\n");
+                if (!peli.onKesken()) {
                     break;
-                } else {
-                    System.out.println("\nVäärä siirto! Yritä uudestaan.\n");
                 }
             }
         }
