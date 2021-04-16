@@ -13,13 +13,13 @@ public class LogiikkaTest {
 
     @Before
     public void pelinJaTestilaudanAlustus() {
-        peli = new Pelilogiikka(2);
+        peli = new Pelilogiikka();
         
         sivunPituus = 3;
         testilauta = new String[sivunPituus][sivunPituus];
         int luku = 0;
-        for (int i = 0; i < sivunPituus; i++) {
-            for (int j = 0; j < sivunPituus; j++) {
+        for (int j = 0; j < sivunPituus; j++) {
+            for (int i = 0; i < sivunPituus; i++) {
                 testilauta[j][i] = "" + luku;
                 luku++;
             }

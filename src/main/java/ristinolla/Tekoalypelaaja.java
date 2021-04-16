@@ -1,11 +1,7 @@
 package ristinolla;
 
-import java.util.*;
-import java.util.Random;
-
 public class Tekoalypelaaja implements Pelaaja {
 
-    private Random r;
     String merkki;
     String vastustajanMerkki;
     int sivunPituus;
@@ -20,10 +16,15 @@ public class Tekoalypelaaja implements Pelaaja {
         }
     }
     
-    public Tekoalypelaaja(Random rand) {
-        r = rand;
-    }
-
+    /**
+     * Aloittaa minimax-algoritmin. Käy parametrina annetun 
+     * laudan läpi. Jos löydetään vapaa ruutu (sisältö on numero), 
+     * niin tutkitaan minimaxin avulla siirron kannattavuus. 
+     * Jos tutkitun ruudun pisteet ovat paremmat kuin aikaisemman 
+     * parhaan ruudun pisteet, korvataan paras ruutu tällä uudella 
+     * ruudulla. Kun on käynyt koko laudan läpi, palauttaa parhaan 
+     * ruudun numeron.
+     */
     public String otaSyote(String[][] argLauta) {
         String[][] lauta = argLauta;
         sivunPituus = lauta.length;
@@ -48,7 +49,21 @@ public class Tekoalypelaaja implements Pelaaja {
         System.out.println("Sijoittaa ruutuun " + parasRuutu);
         return parasRuutu;
     } 
-
+    /**
+     * Aluksi käy argumenttina annetun laudan läpi ja tutkii, onko
+     * peli ohi. Jos maksimoiva pelaaja on voittanut, palauttaa
+     * maksimivuorojen määrän (10) ja rekursion syvyyden erotuksen. 
+     * Jos minimoiva pelaaja on voittanut, palautetaan negatiivinen
+     * maksimivuorojen määrän (-10) ja rekursion syvyyden summa.
+     * Jos päädyttiin tasapeliin, palauttaa 0. Jos peli on vielä
+     * kesken, jatkaa suoritusta. Riippuen onko vuorossa minimoivan
+     * vai maksimoivan pelaajan vuoro, suorittaa minimaxin uudestaan
+     * uusilla parametreilla. Maksimoiva pelaaja valitsee suurimman
+     * mahdollisen pistemäärän, kun taas minimoiva pelaaja valitsee
+     * pienimmän mahdollisen pistemäärän. Maksimoivan pelaajan jälkeen
+     * on minimoivan pelaajan vuoro, jonka jälkeen on taas maksimoivan
+     * pelaajan vuoro jne.
+     */
     private int minimax(String[][] lauta, int syvyys, boolean maximoi) {
         // tarkistaa, onko voitettu (= päästy gametreen loppuun) 
         for (int j = 0; j < sivunPituus; j++) {
@@ -108,15 +123,19 @@ public class Tekoalypelaaja implements Pelaaja {
         }
     }
 
+    /**
+     * Tarkistaa, onko voitettu. Palauttaa voittaneen merkin merkkijonon,
+     * tasapelin, tai pelin olevan vielä kesken.
+     */
     public String laskePisteet(String[][] lauta, int y, int x) {
-        String tempm = lauta[y][x];
+        String tutkittavaMerkki = lauta[y][x];
         
         // rivi
         int rivisumma = 0;
         for (int i = 0; i < sivunPituus; i++) {
-            if (tempm.equals(lauta[y][i])) {
+            if (tutkittavaMerkki.equals(lauta[y][i])) {
                 rivisumma++;
-                tempm = lauta[y][i];
+                tutkittavaMerkki = lauta[y][i];
                 if (rivisumma == sivunPituus) {
                     return lauta[y][i];
                 }
@@ -126,9 +145,9 @@ public class Tekoalypelaaja implements Pelaaja {
         // sarake
         int sarakesumma = 0;
         for (int i = 0; i < sivunPituus; i++) {
-            if (tempm.equals(lauta[i][x])) {
+            if (tutkittavaMerkki.equals(lauta[i][x])) {
                 sarakesumma++;
-                tempm = lauta[i][x];
+                tutkittavaMerkki = lauta[i][x];
                 if (sarakesumma == sivunPituus) {
                     return lauta[i][x];
                 }
@@ -139,9 +158,9 @@ public class Tekoalypelaaja implements Pelaaja {
             // diagonaali [0,0],[1,1], [2,2]
             int diagonaalisumma = 0;
             for (int i = 0; i < sivunPituus; i++) {
-                if (tempm.equals(lauta[i][i])) {
+                if (tutkittavaMerkki.equals(lauta[i][i])) {
                     diagonaalisumma++;
-                    tempm = lauta[i][i];
+                    tutkittavaMerkki = lauta[i][i];
                     if (diagonaalisumma == sivunPituus) {
                         return lauta[i][i];
                     }
@@ -153,9 +172,9 @@ public class Tekoalypelaaja implements Pelaaja {
             int i = 0;
             int j = sivunPituus-1;
             while (i < sivunPituus) {
-                if (tempm.equals(lauta[j][i])) {
+                if (tutkittavaMerkki.equals(lauta[j][i])) {
                     kaanteisdiagonaalisumma++;
-                    tempm = lauta[j][i];
+                    tutkittavaMerkki = lauta[j][i];
                     if (kaanteisdiagonaalisumma == sivunPituus) {
                         return lauta[j][i];
                     }
@@ -172,6 +191,10 @@ public class Tekoalypelaaja implements Pelaaja {
         return "kesken";
     }
 
+    //TODO: pääse eroon tästä metodista -> vapaatRuudut parametriksi?
+    /**
+     * Apumetodi vapaiden ruutujen lukumäärän laskemiseen.
+     */
     public int laskeVapaatRuudut(String[][] lauta) {
         int vapaatRuudut = sivunPituus*sivunPituus;
         for (int j = 0; j < sivunPituus; j++) {
@@ -183,7 +206,10 @@ public class Tekoalypelaaja implements Pelaaja {
         }
         return vapaatRuudut;
     }
-    
+
+    /**
+    * Apumetodi diagonaaliruutujen tunnistamiseen.
+     */ 
     public boolean onDiagonaalilla(int y, int x) {
         // diagonaali: tapaukset [0,2], [1,1] [2,0] 
         if (y+x == sivunPituus-1) {
@@ -196,6 +222,9 @@ public class Tekoalypelaaja implements Pelaaja {
         return false;
     }
 
+    /**
+     * Apumetodi numeroiden tunnistamiseen.
+     */
     private boolean onNumero(String syote) {
         try {
             Integer.parseInt(syote);
@@ -205,7 +234,7 @@ public class Tekoalypelaaja implements Pelaaja {
         }
     }
 
-
+/*
     public void tulostaLauta(String[][] lauta) {
        String rivit = "";
         for (int j = 0; j < lauta.length; j++) {
@@ -217,5 +246,5 @@ public class Tekoalypelaaja implements Pelaaja {
         }        
         System.out.println(rivit);
     }
-
+*/
 }
