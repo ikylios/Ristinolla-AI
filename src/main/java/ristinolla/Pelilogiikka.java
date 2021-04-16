@@ -22,9 +22,9 @@ public class Pelilogiikka {
             }
         }
 /*        
-        lauta[0] = new String[] {"X", "3", "6"};  
-        lauta[1] = new String[] {"O", "X", "7"};  
-        lauta[2] = new String[] {"2", "5", "O"};  
+        lauta[0] = new String[] {"0", "1", "2"};  
+        lauta[1] = new String[] {"3", "4", "5"};  
+        lauta[2] = new String[] {"6", "7", "8"};  
 */        
         
         pieninIndeksi = 0;
@@ -44,12 +44,10 @@ public class Pelilogiikka {
     */
     public boolean onnistunutSiirto(String ruutunumero) {
         if (onValidiIndeksi(ruutunumero)) {
-            for (int i = 0; i < sivunPituus; i++) {
-                for (int j = 0; j < sivunPituus; j++) {
+            for (int j = 0; j < sivunPituus; j++) {
+                for (int i = 0; i < sivunPituus; i++) {
                     String laudanNumero = lauta[j][i];
-//                    System.out.println("laudannumero: " + laudanNumero + ", ruutunumero: " + ruutunumero);
                     if (laudanNumero.equals(ruutunumero)) {
-//                        System.out.println("laudannumero ja ruudunnumero samat");
                         lauta[j][i] = getVuoro();
                         vapaatRuudut--;
                         tarkistaVoittotilanne(j, i);
@@ -109,7 +107,6 @@ public class Pelilogiikka {
         // rivi
         int rivisumma = 0;
         for (int i = 0; i < sivunPituus; i++) {
-//            System.out.println("lauta: " + lauta[i][x]);
             if (getVuoro().equals(lauta[y][i])) {
                 rivisumma++;
             }
@@ -144,8 +141,6 @@ public class Pelilogiikka {
                 j--;
             }
         }
-
-//        System.out.println("rivi:" + rivisumma + ", sarake:" + sarakesumma + ", diag:" +diagonaalisumma + ", kdiag:" + kaanteisdiagonaalisumma);
 
         if (rivisumma == sivunPituus 
             || sarakesumma == sivunPituus 
