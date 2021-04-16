@@ -11,28 +11,26 @@ public class Pelilogiikka {
     private int vapaatRuudut;
     private String voittotilanne;
 
-    public Pelilogiikka(int ihmispelaajienMaara) {
+    public Pelilogiikka() {
         sivunPituus = 3;
         lauta = new String[sivunPituus][sivunPituus];
         int luku = 0;
-        for (int i = 0; i < sivunPituus; i++) {
-            for (int j = 0; j < sivunPituus; j++) {
+        for (int j = 0; j < sivunPituus; j++) {
+            for (int i = 0; i < sivunPituus; i++) {
                 lauta[j][i] = "" + luku;
                 luku++;
             }
         }
+/*        
+        lauta[0] = new String[] {"X", "3", "6"};  
+        lauta[1] = new String[] {"O", "X", "7"};  
+        lauta[2] = new String[] {"2", "5", "O"};  
+*/        
+        
         pieninIndeksi = 0;
         suurinIndeksi = luku;
         vapaatRuudut = sivunPituus*sivunPituus;
         voittotilanne = "";
-
-        /*
-        // Luo taulukon, jossa kaikkien mahdollisten indeksien arvot
-        indeksit = new String[suurinIndeksi];
-        for (int i = 0; i < indeksit.length; i++) {
-            indeksit[i] = "" + i;
-        }
-        */
 
         onKesken = true;
         oVuoro = false;
@@ -54,7 +52,6 @@ public class Pelilogiikka {
 //                        System.out.println("laudannumero ja ruudunnumero samat");
                         lauta[j][i] = getVuoro();
                         vapaatRuudut--;
-                        System.out.println("vapaatruudut:" + vapaatRuudut);
                         tarkistaVoittotilanne(j, i);
                         toggleVuoro();
                         return true;
@@ -70,16 +67,6 @@ public class Pelilogiikka {
     * syöte on väliltä [pienin indeksi, suurin indeksi].
     */
     public boolean onValidiIndeksi(String syote) {
-        /*
-        for (int i = 0; i < indeksit.length; i++)  {
-            if (indeksit[i].equals(syote)) {
-               return true;
-            }
-        }
-        
-        return false;
-        */
-
         try {
            int syoteArvo = Integer.parseInt(syote);
            if (syoteArvo >= pieninIndeksi && syoteArvo <= suurinIndeksi) {
@@ -123,16 +110,16 @@ public class Pelilogiikka {
         int rivisumma = 0;
         for (int i = 0; i < sivunPituus; i++) {
 //            System.out.println("lauta: " + lauta[i][x]);
-            if (getVuoro().equals(lauta[i][x])) {
-                rivisumma += 1;
+            if (getVuoro().equals(lauta[y][i])) {
+                rivisumma++;
             }
         }
 
         // sarake
         int sarakesumma = 0;
         for (int i = 0; i < sivunPituus; i++) {
-            if (getVuoro().equals(lauta[y][i])) {
-                sarakesumma += 1;
+            if (getVuoro().equals(lauta[i][x])) {
+                sarakesumma++;
             }
         }
 
@@ -142,19 +129,19 @@ public class Pelilogiikka {
             // diagonaali [0,0],[1,1], [2,2]
             for (int i = 0; i < sivunPituus; i++) {
                 if (getVuoro().equals(lauta[i][i])) {
-                    diagonaalisumma += 1;
+                    diagonaalisumma++;
                 }
             }
 
             // käänteisdiagonaali [0,2], [1,1], [2,0]
-            int j = 0;
-            int i = sivunPituus-1;
-            while (j < sivunPituus) {
+            int i = 0;
+            int j = sivunPituus-1;
+            while (i < sivunPituus) {
                 if (getVuoro().equals(lauta[j][i])) {
-                    kaanteisdiagonaalisumma += 1;
+                    kaanteisdiagonaalisumma++;
                 }
-                i--;
-                j++;
+                i++;
+                j--;
             }
         }
 

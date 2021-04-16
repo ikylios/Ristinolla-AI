@@ -17,42 +17,56 @@ public class UI {
     public void kaynnista() {
         System.out.println("\nTervetuloa pelaamaan ristinollaa.\n");
         String syote = "";
+/*        
         while (true) {
             System.out.println("Valitse ihmispelaajien määrä (0-2):");
             syote = lukija.nextLine();
             try {
                 int syoteArvo = Integer.parseInt(syote);
-                Pelaaja p1 = new Tekoalypelaaja();
-                Pelaaja p2 = new Tekoalypelaaja();
+                
+                Pelaaja p1 = new Tekoalypelaaja("X");
+*/                
+                Pelaaja p1 = new Ihmispelaaja(lukija);
+                Pelaaja p2 = new Tekoalypelaaja("O");
+/*                
                 if (syoteArvo > 0) {
                     p1 = new Ihmispelaaja(lukija);
+                    
                     if (syoteArvo == 2) {
                         p2 = new Ihmispelaaja(lukija);
                     }
                 }
+*/                
                 pelaajat = new Pelaaja[] {p1, p2};
-                break;
+/*                
+                break;                
             } catch (Exception e) {
                 System.out.println("\nEi sallittu arvo.\n");
             }
         }    
+*/        
 
 //        System.out.println(Arrays.toString(pelaajat));
 
         System.out.println("Aloitetaan!\n");
-        peli = new Pelilogiikka(Integer.parseInt(syote)); 
+        peli = new Pelilogiikka(); 
         System.out.println("---------------------\n");
         pelaa();
     }
 
     public void pelaa() {
-        System.out.println(Arrays.toString(pelaajat));
-        while(peli.onKesken()) {
+//        System.out.println(Arrays.toString(pelaajat));
+        while (peli.onKesken()) {
             for (Pelaaja pelaaja : pelaajat) {
                 tulostaLauta();
                 System.out.println(peli.getVuoro() + "-merkin vuoro.");
+//                if (pelaaja instanceof Tekoalypelaaja) {
+//                    pelaaja.otaSyote(peli.getLauta());                
+//                } else {
+//                    pelaaja.otaSyote();
+//                }
                 while (true) {
-                    if (peli.onnistunutSiirto(pelaaja.otaSyote())) {
+                    if (peli.onnistunutSiirto(pelaaja.otaSyote(peli.getLauta()))) {
                         System.out.println("---------------------\n");
                         break;
                     } else {
@@ -92,9 +106,9 @@ public class UI {
        String[][] lauta = peli.getLauta();
 
        String rivit = "";
-        for (int i = 0; i < lauta.length; i++) {
+        for (int j = 0; j < lauta.length; j++) {
             rivit += "  | ";
-            for (int j = 0; j < lauta.length; j++) {
+            for (int i = 0; i < lauta.length; i++) {
                 rivit += lauta[j][i] + " | ";
             }
             rivit += "\n";

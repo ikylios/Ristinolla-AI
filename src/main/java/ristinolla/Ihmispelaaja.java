@@ -10,7 +10,7 @@ public class Ihmispelaaja implements Pelaaja {
         lukija = s;
     }
 
-    public String otaSyote() {
+    public String otaSyote(String[][] lauta) {
         System.out.println("Syötä ruudun numero, jonne haluat sijoittaa merkin:");
         String syote = lukija.nextLine();
         return syote;
