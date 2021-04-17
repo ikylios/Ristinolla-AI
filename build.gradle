@@ -1,8 +1,9 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'application'
-apply plugin: 'checkstyle'
-
+plugins {
+    id 'application'
+    id 'java'
+    id 'jacoco'
+    id 'checkstyle'
+}
 
 mainClassName = 'ignoreTests.Main'
 
