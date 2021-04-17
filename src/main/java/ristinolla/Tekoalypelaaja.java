@@ -48,7 +48,8 @@ public class Tekoalypelaaja implements Pelaaja {
         }
         System.out.println("Sijoittaa ruutuun " + parasRuutu);
         return parasRuutu;
-    } 
+    }
+
     /**
      * Aluksi käy argumenttina annetun laudan läpi ja tutkii, onko
      * peli ohi. Jos maksimoiva pelaaja on voittanut, palauttaa

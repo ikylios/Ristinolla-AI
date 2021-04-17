@@ -9,7 +9,7 @@ public class Pelilogiikka {
     private int pieninIndeksi;
     private int suurinIndeksi;
     private int vapaatRuudut;
-    private String voittotilanne;
+    private int voittaja;
 
     public Pelilogiikka() {
         sivunPituus = 3;
@@ -30,7 +30,7 @@ public class Pelilogiikka {
         pieninIndeksi = 0;
         suurinIndeksi = luku;
         vapaatRuudut = sivunPituus*sivunPituus;
-        voittotilanne = "";
+        voittaja = 2;
 
         onKesken = true;
         oVuoro = false;
@@ -84,14 +84,24 @@ public class Pelilogiikka {
     */
     public void tarkistaVoittotilanne(int y, int x) {
         if (laskePisteet(y, x)) {
-            setVoittotilanne(getVuoro());
+            if (getVuoro().equals("X")) {
+                voittaja = 1;
+            } else {
+                voittaja = -1;
+            }
             onKesken = false;
         }
 
         if (vapaatRuudut == 0) {
-            setVoittotilanne("tasapeli");
+            voittaja = 0;
             onKesken = false;
         }
+
+        if (voittaja != 2) {
+            onKesken = false;
+            setVoittaja(voittaja);
+        }
+
     }
     
     /**
@@ -183,12 +193,12 @@ public class Pelilogiikka {
         return onKesken;
     }
 
-    public String getVoittotilanne() {
-        return voittotilanne;
+    public int kukaVoitti() {
+        return voittaja;
     }
     
-    public void setVoittotilanne(String syote) {
-        voittotilanne = syote;
+    public void setVoittaja(int syote) {
+        voittaja = syote;
     }
 
     public String[][] getLauta() {

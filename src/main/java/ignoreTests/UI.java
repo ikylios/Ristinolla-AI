@@ -2,7 +2,6 @@ package ignoreTests;
 
 import java.util.Scanner;
 import ristinolla.*;
-import java.util.*;
 
 public class UI {
 
@@ -68,14 +67,14 @@ public class UI {
     }
 
     public void peliOhi() {
-        switch (peli.getVoittotilanne()) {
-            case "tasapeli":
+        switch (peli.kukaVoitti()) {
+            case 0:
                 System.out.println("Tasapeli!");
                 break;
-            case "X":
+            case 1:
                 System.out.println("X voitti!");
                 break;
-            case "O":
+            case -1:
                 System.out.println("O voitti!");
                 break;
             default:

@@ -55,7 +55,7 @@ public class LogiikkaTest {
         for (int i = 0; i < syöte.length(); i++) {
             peli.onnistunutSiirto(syöte.substring(i, i+1));
         }
-        assertEquals("tasapeli", peli.getVoittotilanne());
+        assertEquals(0, peli.kukaVoitti());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class LogiikkaTest {
         for (int i = 0; i < syöte.length(); i++) {
             peli.onnistunutSiirto(syöte.substring(i, i+1));
         }
-        assertEquals("X", peli.getVoittotilanne());
+        assertEquals(1, peli.kukaVoitti());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class LogiikkaTest {
         for (int i = 0; i < syöte.length(); i++) {
             peli.onnistunutSiirto(syöte.substring(i, i+1));
         }
-        assertEquals("O", peli.getVoittotilanne());
+        assertEquals(-1, peli.kukaVoitti());
     }
     
     @Test
@@ -82,6 +82,6 @@ public class LogiikkaTest {
         for (int i = 0; i < syöte.length(); i++) {
             peli.onnistunutSiirto(syöte.substring(i, i+1));
         }
-        assertEquals("O", peli.getVoittotilanne());
+        assertEquals(-1, peli.kukaVoitti());
     }
 }
