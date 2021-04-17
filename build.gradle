@@ -9,6 +9,7 @@ mainClassName = 'ignoreTests.Main'
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 
