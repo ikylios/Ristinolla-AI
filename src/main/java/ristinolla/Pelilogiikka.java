@@ -22,8 +22,12 @@ public class Pelilogiikka {
             }
         }
 /*        
-        lauta[0] = new String[] {"0", "1", "2"};  
-        lauta[1] = new String[] {"3", "4", "5"};  
+        lauta[0] = new String[] {"X", "1", "O"};
+        lauta[1] = new String[] {"3", "4", "5"};
+        lauta[2] = new String[] {"6", "7", "8"};  
+/*        
+        lauta[0] = new String[] {"0", "1", "2"};
+        lauta[1] = new String[] {"3", "4", "5"};
         lauta[2] = new String[] {"6", "7", "8"};  
 */        
         

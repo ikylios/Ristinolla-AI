@@ -40,18 +40,6 @@ public class TekoalypelaajaTest {
     }
 
     @Test
-    public void minimaxEstaaVoitonDiagonaalilla() {
-        String parasRuutu = "";
-        String[][] lauta = { 
-            {"X", "1", "O"},
-            {"3", "X", "5"},
-            {"6", "7", "8"},
-        };
-
-        assertEquals(t.otaSyote(lauta), "8");
-    }
-
-    @Test
     public void minimaxEstaaVoitonKDiagonaalilla() {
         String parasRuutu = "";
         String[][] lauta = { 

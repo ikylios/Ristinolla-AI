@@ -14,6 +14,7 @@ public class Tekoalypelaaja implements Pelaaja {
         } else {
             vastustajanMerkki = "X";
         }
+
     }
     
     /**
@@ -29,6 +30,7 @@ public class Tekoalypelaaja implements Pelaaja {
         String[][] lauta = argLauta;
         sivunPituus = lauta.length;
         maksimivuorot = sivunPituus*sivunPituus+1;
+        
         String parasRuutu = "";
         int parasTulos = -100000;
         for (int j = 0; j < sivunPituus; j++) {
@@ -37,7 +39,7 @@ public class Tekoalypelaaja implements Pelaaja {
                 if (onNumero(lauta[j][i])) { 
                     String ruutunumero = lauta[j][i];
                     lauta[j][i] = merkki;
-                    int tulos = minimax(lauta, 0, false);
+                    int tulos = minimax(lauta, 0, false, 10000, -10000);
                     lauta[j][i] = ruutunumero;
                     if (tulos > parasTulos) {                        
                         parasRuutu = lauta[j][i];
@@ -65,7 +67,7 @@ public class Tekoalypelaaja implements Pelaaja {
      * on minimoivan pelaajan vuoro, jonka jälkeen on taas maksimoivan
      * pelaajan vuoro jne.
      */
-    private int minimax(String[][] lauta, int syvyys, boolean maximoi) {
+    private int minimax(String[][] lauta, int syvyys, boolean maximoi, int alpha, int beta) {
         // tarkistaa, onko voitettu (= päästy gametreen loppuun) 
         for (int j = 0; j < sivunPituus; j++) {
             for (int i = 0; i < sivunPituus; i++) {
@@ -94,11 +96,17 @@ public class Tekoalypelaaja implements Pelaaja {
                 for (int i = 0; i < sivunPituus; i++) {
                     if (onNumero(lauta[j][i])) {
                         String ruutunumero = lauta[j][i];
-                        lauta[j][i] = merkki;
-                        int tulos = minimax(lauta, syvyys+1, false);
+                        lauta[j][i] = merkki;                        
+                        int tulos = minimax(lauta, syvyys+1, false, alpha, beta);
                         lauta[j][i] = ruutunumero;
                         if (tulos > parasTulos) {
                             parasTulos = tulos;
+                            if (parasTulos > alpha) {
+                                alpha = parasTulos;
+                            }
+                            if (beta <= alpha) {
+                                break;
+                            }
                         }
                     }
                 }
@@ -112,10 +120,16 @@ public class Tekoalypelaaja implements Pelaaja {
                     if (onNumero(lauta[j][i])) {
                         String ruutunumero = lauta[j][i];
                         lauta[j][i] = vastustajanMerkki;
-                        int tulos = minimax(lauta, syvyys+1, true);
+                        int tulos = minimax(lauta, syvyys+1, true, alpha, beta);
                         lauta[j][i] = ruutunumero;
                         if (tulos < parasTulos) {
                             parasTulos = tulos;
+                        }
+                        if (parasTulos < beta) {
+                            beta = parasTulos;
+                        }
+                        if (beta <= alpha) {
+                            break;
                         }
                     }
                 }
