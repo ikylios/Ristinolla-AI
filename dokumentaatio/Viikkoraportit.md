@@ -13,3 +13,6 @@ Pohdintaa ja tutkimusta ristinollan voittamismekaniikasta, sekä ohjelmointia. O
 
 ## Viikko 4
 Ohjelma nyt tukee 0-2 tietokonepelaajan pelin. Koodia refaktoroitu ja siistitty muutoksia varten (3h) sekä lisätty testit uusille luokille Ihmispelaaja sekä Tekoälypelaaja (2h). Minimaxia tutkittu ja toteutettu ohjelmaan (10h). Ohjelma osaa pelata 3x3 laudalla sekä ihminen vastaan tekoäly että tekoäly vastaan tekoäly (tässä vaiheessa melko hidas. Nopeutunee alfa-beta-karsinnan myötä). Lisättiin muutama testi (1h).
+
+## Viikko 5
+Alfa-beta-karsinta lisätty ja pieniä muutoksia mm. testeihin. Dokumentaatiota (testaus- sekä toteutusdokumentti).

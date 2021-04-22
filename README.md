@@ -6,3 +6,6 @@
 
 [Määrittelydokumentti](https://github.com/ikylios/Ristinolla-AI/blob/main/dokumentaatio/Maarittelydokumentti.md)
 
+[Toteutusdokumentti](https://github.com/ikylios/Ristinolla-AI/blob/main/dokumentaatio/Toteutusdokumentti.md)
+
+[Testausdokumentti](https://github.com/ikylios/Ristinolla-AI/blob/main/dokumentaatio/Testausdokumentti.md)
