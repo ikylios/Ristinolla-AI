@@ -72,17 +72,14 @@ public class Tekoalypelaaja implements Pelaaja {
         for (int j = 0; j < sivunPituus; j++) {
             for (int i = 0; i < sivunPituus; i++) {
                 if (!onNumero(lauta[j][i])) {
-                    String voittaja = laskePisteet(lauta, j, i);
-                    if (!voittaja.equals("kesken")) {
-                        if (!voittaja.equals("tasapeli")) {
-                            if (voittaja.equals(merkki)) {
-                                return maksimivuorot - syvyys;
-                            } else {
-                                return -maksimivuorot + syvyys;
-                            }
-                        } else {
-                            return 0;
-                        }                
+                    int voittaja = laskePisteet(lauta, j, i);                    
+                    if (voittaja != 2) {
+                        int pelinPisteet = 0;
+                        switch (voittaja) {
+                            case 1: pelinPisteet = maksimivuorot - syvyys;
+                            case -1: pelinPisteet = -maksimivuorot + syvyys;
+                        }
+                        return pelinPisteet;
                     }                    
                 }     
             }
@@ -142,7 +139,7 @@ public class Tekoalypelaaja implements Pelaaja {
      * Tarkistaa, onko voitettu. Palauttaa voittaneen merkin merkkijonon,
      * tasapelin, tai pelin olevan vielä kesken.
      */
-    public String laskePisteet(String[][] lauta, int y, int x) {
+    public int laskePisteet(String[][] lauta, int y, int x) {
         String tutkittavaMerkki = lauta[y][x];
         
         // rivi
@@ -152,7 +149,7 @@ public class Tekoalypelaaja implements Pelaaja {
                 rivisumma++;
                 tutkittavaMerkki = lauta[y][i];
                 if (rivisumma == sivunPituus) {
-                    return lauta[y][i];
+                    return merkkiToInt(tutkittavaMerkki);
                 }
             }
         }
@@ -164,7 +161,7 @@ public class Tekoalypelaaja implements Pelaaja {
                 sarakesumma++;
                 tutkittavaMerkki = lauta[i][x];
                 if (sarakesumma == sivunPituus) {
-                    return lauta[i][x];
+                    return merkkiToInt(tutkittavaMerkki);
                 }
             }
         }
@@ -177,7 +174,7 @@ public class Tekoalypelaaja implements Pelaaja {
                     diagonaalisumma++;
                     tutkittavaMerkki = lauta[i][i];
                     if (diagonaalisumma == sivunPituus) {
-                        return lauta[i][i];
+                        return merkkiToInt(tutkittavaMerkki);
                     }
                 }
             }
@@ -191,7 +188,7 @@ public class Tekoalypelaaja implements Pelaaja {
                     kaanteisdiagonaalisumma++;
                     tutkittavaMerkki = lauta[j][i];
                     if (kaanteisdiagonaalisumma == sivunPituus) {
-                        return lauta[j][i];
+                        return merkkiToInt(tutkittavaMerkki);
                     }
                 }
                 i++;
@@ -200,10 +197,10 @@ public class Tekoalypelaaja implements Pelaaja {
         }
 
         if (laskeVapaatRuudut(lauta) == 0) {
-            return "tasapeli";
+            return 0;
         }
         
-        return "kesken";
+        return 2;
     }
 
     //TODO: pääse eroon tästä metodista -> vapaatRuudut parametriksi?
@@ -220,6 +217,13 @@ public class Tekoalypelaaja implements Pelaaja {
             }
         }
         return vapaatRuudut;
+    }
+
+    public int merkkiToInt(String syote) {
+        if (syote.equals(merkki)) {
+            return 1;
+        }
+        return -1;
     }
 
     /**
@@ -249,17 +253,4 @@ public class Tekoalypelaaja implements Pelaaja {
         }
     }
 
-/*
-    public void tulostaLauta(String[][] lauta) {
-       String rivit = "";
-        for (int j = 0; j < lauta.length; j++) {
-            rivit += "  | ";
-            for (int i = 0; i < lauta.length; i++) {
-                rivit += lauta[j][i] + " | ";
-            }
-            rivit += "\n";
-        }        
-        System.out.println(rivit);
-    }
-*/
 }

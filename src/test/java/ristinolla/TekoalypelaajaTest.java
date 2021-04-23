@@ -24,7 +24,7 @@ public class TekoalypelaajaTest {
             {"6", "7", "8"},
         };
 
-        assertEquals(t.otaSyote(lauta), "6");
+        assertEquals("6", t.otaSyote(lauta));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class TekoalypelaajaTest {
             {"6", "7", "8"},
         };
 
-        assertEquals(t.otaSyote(lauta), "2");
+        assertEquals("2", t.otaSyote(lauta));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TekoalypelaajaTest {
             {"6", "7", "O"},
         };
 
-        assertEquals(t.otaSyote(lauta), "6");
+        assertEquals("6", t.otaSyote(lauta));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class TekoalypelaajaTest {
             }
         }            
 
-        assertEquals(peli.kukaVoitti(), 0);
+        assertEquals(0, peli.kukaVoitti());
     }
 
 }

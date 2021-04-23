@@ -87,23 +87,22 @@ public class Pelilogiikka {
      * Vaihtaa onKesken-arvon falseksi, sillä peli keskeytyy.
     */
     public void tarkistaVoittotilanne(int y, int x) {
+        int tempVoittaja = 2; 
         if (laskePisteet(y, x)) {
             if (getVuoro().equals("X")) {
-                voittaja = 1;
+                tempVoittaja = 1;
             } else {
-                voittaja = -1;
+                tempVoittaja = -1;
             }
-            onKesken = false;
+        } else {
+            if (vapaatRuudut == 0) {
+                tempVoittaja = 0;
+            }
         }
 
-        if (vapaatRuudut == 0) {
-            voittaja = 0;
+        if (tempVoittaja != 2) {
             onKesken = false;
-        }
-
-        if (voittaja != 2) {
-            onKesken = false;
-            setVoittaja(voittaja);
+            setVoittaja(tempVoittaja);
         }
 
     }
