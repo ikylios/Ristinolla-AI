@@ -11,8 +11,8 @@ public class Pelilogiikka {
     private int vapaatRuudut;
     private int voittaja;
 
-    public Pelilogiikka(int argSivunPituus) {
-        sivunPituus = argSivunPituus;
+    public Pelilogiikka() {
+        sivunPituus = 3;
         lauta = new String[sivunPituus][sivunPituus];
         int luku = 0;
         for (int j = 0; j < sivunPituus; j++) {
@@ -22,12 +22,8 @@ public class Pelilogiikka {
             }
         }
 /*        
-        lauta[0] = new String[] {"X", "1", "O"};
-        lauta[1] = new String[] {"3", "4", "5"};
-        lauta[2] = new String[] {"6", "7", "8"};  
-/*        
-        lauta[0] = new String[] {"0", "1", "2"};
-        lauta[1] = new String[] {"3", "4", "5"};
+        lauta[0] = new String[] {"0", "1", "2"};  
+        lauta[1] = new String[] {"3", "4", "5"};  
         lauta[2] = new String[] {"6", "7", "8"};  
 */        
         
@@ -87,22 +83,23 @@ public class Pelilogiikka {
      * Vaihtaa onKesken-arvon falseksi, sillä peli keskeytyy.
     */
     public void tarkistaVoittotilanne(int y, int x) {
-        int tempVoittaja = 2; 
         if (laskePisteet(y, x)) {
             if (getVuoro().equals("X")) {
-                tempVoittaja = 1;
+                voittaja = 1;
             } else {
-                tempVoittaja = -1;
+                voittaja = -1;
             }
-        } else {
-            if (vapaatRuudut == 0) {
-                tempVoittaja = 0;
-            }
+            onKesken = false;
         }
 
-        if (tempVoittaja != 2) {
+        if (vapaatRuudut == 0) {
+            voittaja = 0;
             onKesken = false;
-            setVoittaja(tempVoittaja);
+        }
+
+        if (voittaja != 2) {
+            onKesken = false;
+            setVoittaja(voittaja);
         }
 
     }

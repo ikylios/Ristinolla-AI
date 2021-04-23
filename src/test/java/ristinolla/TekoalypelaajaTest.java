@@ -15,7 +15,7 @@ public class TekoalypelaajaTest {
     @Before 
     public void testiAlustus() {
         sivunPituus = 3;
-        t = new Tekoalypelaaja("O", sivunPituus);
+        t = new Tekoalypelaaja("O");
     }
 
     @Test
@@ -39,6 +39,17 @@ public class TekoalypelaajaTest {
 
         assertEquals("2", t.otaSyote(lauta));
     }
+    
+    @Test
+    public void minimaxEstaaVoitonDiagonaalilla() {
+        String[][] lauta = { 
+            {"X", "1", "2"},
+            {"O", "X", "5"},
+            {"6", "7", "8"},
+        };
+
+        assertEquals("8", t.otaSyote(lauta));
+    }
 
     @Test
     public void minimaxEstaaVoitonKDiagonaalilla() {
@@ -53,8 +64,10 @@ public class TekoalypelaajaTest {
 
     @Test
     public void tasapeliKahdenAInPelissa() {
-        Pelilogiikka peli = new Pelilogiikka(sivunPituus);
-        Tekoalypelaaja t2 = new Tekoalypelaaja("X", sivunPituus);
+        int sivunPituus = 3;
+//        Pelilogiikka peli = new Pelilogiikka(sivunPituus);
+        Pelilogiikka peli = new Pelilogiikka();
+        Tekoalypelaaja t2 = new Tekoalypelaaja("X");
         Tekoalypelaaja[] pelaajat = new Tekoalypelaaja[] {t2, t};
 
         while (peli.onKesken()) {

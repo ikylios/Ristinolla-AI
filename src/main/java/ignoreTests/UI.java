@@ -24,8 +24,8 @@ public class UI {
             try {                
                 int syoteArvo = Integer.parseInt(syote);
                 
-                Pelaaja p1 = new Tekoalypelaaja("X", sivunPituus);
-                Pelaaja p2 = new Tekoalypelaaja("O", sivunPituus);
+                Pelaaja p1 = new Tekoalypelaaja("X");
+                Pelaaja p2 = new Tekoalypelaaja("O");
                 if (syoteArvo > 0) {
                     p1 = new Ihmispelaaja(lukija);
                     if (syoteArvo == 2) {
@@ -41,7 +41,7 @@ public class UI {
 
         System.out.println("Aloitetaan!\n");
 //        peli = new Pelilogiikka(sivunPituus); 
-        peli = new Pelilogiikka(sivunPituus); 
+        peli = new Pelilogiikka(); 
         System.out.println("---------------------\n");
         pelaa();
     }
@@ -70,9 +70,15 @@ public class UI {
     public void peliOhi() {
         String lopputulos = "Jotain outoa tapahtui.";
         switch (peli.kukaVoitti()) {
-            case 0: lopputulos = "Tasapeli!";
-            case 1: lopputulos = "X voitti!";
-            case -1: lopputulos = "O voitti!";
+            case 0: 
+                lopputulos = "Tasapeli!";
+                break;
+            case 1: 
+                lopputulos = "X voitti!";
+                break;
+            case -1: 
+                lopputulos = "O voitti!";
+                break;
         }
         System.out.println(lopputulos);
         System.out.println("Lopullinen lauta:\n");
