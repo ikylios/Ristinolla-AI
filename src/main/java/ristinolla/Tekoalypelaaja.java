@@ -6,15 +6,17 @@ public class Tekoalypelaaja implements Pelaaja {
     String vastustajanMerkki;
     int sivunPituus;
     int maksimivuorot;
+    int vapaatRuudut;
 
-    public Tekoalypelaaja(String m) {
+    public Tekoalypelaaja(String m, int sivunPituus) {
         merkki = m;
         if (merkki.equals("X")) {
             vastustajanMerkki = "O";
         } else {
             vastustajanMerkki = "X";
         }
-
+        vapaatRuudut = sivunPituus*sivunPituus;
+        maksimivuorot = vapaatRuudut+1;
     }
     
     /**
@@ -39,16 +41,17 @@ public class Tekoalypelaaja implements Pelaaja {
                 if (onNumero(lauta[j][i])) { 
                     String ruutunumero = lauta[j][i];
                     lauta[j][i] = merkki;
-                    int tulos = minimax(lauta, 0, false, 10000, -10000);
+                    int tulos = minimax(lauta, 0, false, 10000, -10000, vapaatRuudut-1);
                     lauta[j][i] = ruutunumero;
                     if (tulos > parasTulos) {                        
                         parasRuutu = lauta[j][i];
                         parasTulos = tulos;
-                    }
+                    }                    
                 }
             }
         }
         System.out.println("Sijoittaa ruutuun " + parasRuutu);
+        vapaatRuudut--;
         return parasRuutu;
     }
 
@@ -67,17 +70,17 @@ public class Tekoalypelaaja implements Pelaaja {
      * on minimoivan pelaajan vuoro, jonka jälkeen on taas maksimoivan
      * pelaajan vuoro jne.
      */
-    private int minimax(String[][] lauta, int syvyys, boolean maximoi, int alpha, int beta) {
+    private int minimax(String[][] lauta, int syvyys, boolean maximoi, int alpha, int beta, int vapaat) {
         // tarkistaa, onko voitettu (= päästy gametreen loppuun) 
         for (int j = 0; j < sivunPituus; j++) {
             for (int i = 0; i < sivunPituus; i++) {
                 if (!onNumero(lauta[j][i])) {
-                    int voittaja = laskePisteet(lauta, j, i);                    
-                    if (voittaja != 2) {
-                        int pelinPisteet = 0;
+                    int voittaja = laskePisteet(lauta, j, i, vapaat);                                        
+                    if (voittaja != 2) {                // peli on päättynyt jotenkin
+                        int pelinPisteet = 0;           // oletusarvoisesti tasapeli 
                         switch (voittaja) {
-                            case 1: pelinPisteet = maksimivuorot - syvyys;
-                            case -1: pelinPisteet = -maksimivuorot + syvyys;
+                            case 1: pelinPisteet = maksimivuorot - syvyys;      // oman merkin pelaaja on voittanut
+                            case -1: pelinPisteet = -maksimivuorot + syvyys;    // vastustaja on voittanut
                         }
                         return pelinPisteet;
                     }                    
@@ -87,14 +90,13 @@ public class Tekoalypelaaja implements Pelaaja {
         
         
         if (maximoi) {
-            String parasRuutu = "";
             int parasTulos = -100000;
             for (int j = 0; j < sivunPituus; j++) {
                 for (int i = 0; i < sivunPituus; i++) {
                     if (onNumero(lauta[j][i])) {
                         String ruutunumero = lauta[j][i];
                         lauta[j][i] = merkki;                        
-                        int tulos = minimax(lauta, syvyys+1, false, alpha, beta);
+                        int tulos = minimax(lauta, syvyys+1, false, alpha, beta, vapaat-1);
                         lauta[j][i] = ruutunumero;
                         if (tulos > parasTulos) {
                             parasTulos = tulos;
@@ -109,15 +111,15 @@ public class Tekoalypelaaja implements Pelaaja {
                 }
             }
             return parasTulos;
+
         } else {
-            String parasRuutu = "";
             int parasTulos = 100000;
             for (int j = 0; j < sivunPituus; j++) {
                 for (int i = 0; i < sivunPituus; i++) {
                     if (onNumero(lauta[j][i])) {
                         String ruutunumero = lauta[j][i];
                         lauta[j][i] = vastustajanMerkki;
-                        int tulos = minimax(lauta, syvyys+1, true, alpha, beta);
+                        int tulos = minimax(lauta, syvyys+1, true, alpha, beta, vapaat-1);
                         lauta[j][i] = ruutunumero;
                         if (tulos < parasTulos) {
                             parasTulos = tulos;
@@ -139,7 +141,7 @@ public class Tekoalypelaaja implements Pelaaja {
      * Tarkistaa, onko voitettu. Palauttaa voittaneen merkin merkkijonon,
      * tasapelin, tai pelin olevan vielä kesken.
      */
-    public int laskePisteet(String[][] lauta, int y, int x) {
+    public int laskePisteet(String[][] lauta, int y, int x, int vapaat) {
         String tutkittavaMerkki = lauta[y][x];
         
         // rivi
@@ -195,28 +197,11 @@ public class Tekoalypelaaja implements Pelaaja {
                 j--;
             }
         }
-
-        if (laskeVapaatRuudut(lauta) == 0) {
+        if (vapaat == 0) {
             return 0;
         }
         
         return 2;
-    }
-
-    //TODO: pääse eroon tästä metodista -> vapaatRuudut parametriksi?
-    /**
-     * Apumetodi vapaiden ruutujen lukumäärän laskemiseen.
-     */
-    public int laskeVapaatRuudut(String[][] lauta) {
-        int vapaatRuudut = sivunPituus*sivunPituus;
-        for (int j = 0; j < sivunPituus; j++) {
-            for (int i = 0; i < sivunPituus; i++) {
-                if (!onNumero(lauta[j][i])) {
-                    vapaatRuudut--;
-                }
-            }
-        }
-        return vapaatRuudut;
     }
 
     public int merkkiToInt(String syote) {

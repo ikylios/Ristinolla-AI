@@ -11,8 +11,8 @@ public class Pelilogiikka {
     private int vapaatRuudut;
     private int voittaja;
 
-    public Pelilogiikka() {
-        sivunPituus = 3;
+    public Pelilogiikka(int argSivunPituus) {
+        sivunPituus = argSivunPituus;
         lauta = new String[sivunPituus][sivunPituus];
         int luku = 0;
         for (int j = 0; j < sivunPituus; j++) {

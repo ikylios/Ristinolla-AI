@@ -31,7 +31,7 @@ public class IhmispelaajaTest {
         
         String vastaus = i.otaSyote(new String[3][3]);
         
-        assertEquals(vastaus, "4");
+        assertEquals("4", vastaus);
     }
 
 }

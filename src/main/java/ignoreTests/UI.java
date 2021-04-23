@@ -16,15 +16,16 @@ public class UI {
     public void kaynnista() {
         System.out.println("\nTervetuloa pelaamaan ristinollaa.\n");
         String syote = "";
+        int sivunPituus = 3;
         
         while (true) {
             System.out.println("Valitse ihmispelaajien määrä (0-2):");
-            syote = lukija.nextLine();
-            try {
+            syote = lukija.nextLine();            
+            try {                
                 int syoteArvo = Integer.parseInt(syote);
                 
-                Pelaaja p1 = new Tekoalypelaaja("X");
-                Pelaaja p2 = new Tekoalypelaaja("O");
+                Pelaaja p1 = new Tekoalypelaaja("X", sivunPituus);
+                Pelaaja p2 = new Tekoalypelaaja("O", sivunPituus);
                 if (syoteArvo > 0) {
                     p1 = new Ihmispelaaja(lukija);
                     if (syoteArvo == 2) {
@@ -32,7 +33,6 @@ public class UI {
                     }
                 }
                 pelaajat = new Pelaaja[] {p1, p2};
-//                pelaajat = new Pelaaja[] {p2, p1};
                 break;                
             } catch (Exception e) {
                 System.out.println("\nEi sallittu arvo.\n");
@@ -40,7 +40,8 @@ public class UI {
         }    
 
         System.out.println("Aloitetaan!\n");
-        peli = new Pelilogiikka(); 
+//        peli = new Pelilogiikka(sivunPituus); 
+        peli = new Pelilogiikka(sivunPituus); 
         System.out.println("---------------------\n");
         pelaa();
     }
@@ -67,20 +68,13 @@ public class UI {
     }
 
     public void peliOhi() {
+        String lopputulos = "Jotain outoa tapahtui.";
         switch (peli.kukaVoitti()) {
-            case 0:
-                System.out.println("Tasapeli!");
-                break;
-            case 1:
-                System.out.println("X voitti!");
-                break;
-            case -1:
-                System.out.println("O voitti!");
-                break;
-            default:
-                System.out.println("Jotain outoa tapahtui.");
-                break;
+            case 0: lopputulos = "Tasapeli!";
+            case 1: lopputulos = "X voitti!";
+            case -1: lopputulos = "O voitti!";
         }
+        System.out.println(lopputulos);
         System.out.println("Lopullinen lauta:\n");
         tulostaLauta();
         lukija.close();

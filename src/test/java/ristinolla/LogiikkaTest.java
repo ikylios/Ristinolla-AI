@@ -13,9 +13,9 @@ public class LogiikkaTest {
 
     @Before
     public void pelinJaTestilaudanAlustus() {
-        peli = new Pelilogiikka();
-        
         sivunPituus = 3;
+        peli = new Pelilogiikka(sivunPituus);
+        
         testilauta = new String[sivunPituus][sivunPituus];
         int luku = 0;
         for (int j = 0; j < sivunPituus; j++) {

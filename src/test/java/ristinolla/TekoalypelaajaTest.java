@@ -10,10 +10,12 @@ import ristinolla.*;
 public class TekoalypelaajaTest {
 
     private Tekoalypelaaja t;
+    private int sivunPituus;
     
     @Before 
     public void testiAlustus() {
-        t = new Tekoalypelaaja("O");
+        sivunPituus = 3;
+        t = new Tekoalypelaaja("O", sivunPituus);
     }
 
     @Test
@@ -51,8 +53,8 @@ public class TekoalypelaajaTest {
 
     @Test
     public void tasapeliKahdenAInPelissa() {
-        Pelilogiikka peli = new Pelilogiikka();
-        Tekoalypelaaja t2 = new Tekoalypelaaja("X");
+        Pelilogiikka peli = new Pelilogiikka(sivunPituus);
+        Tekoalypelaaja t2 = new Tekoalypelaaja("X", sivunPituus);
         Tekoalypelaaja[] pelaajat = new Tekoalypelaaja[] {t2, t};
 
         while (peli.onKesken()) {
