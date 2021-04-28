@@ -42,6 +42,9 @@ public class Pelilogiikka {
      * laudalle. Vähentää vapaiden ruutujen lukumäärää, tarkistaa
      * onko kumpikaan pelaaja voittanut, sekä togglaa vuoron 
      * toiselle merkille.
+     * 
+     * @param ruutunumero Laudalla olevan ruudun numero.
+     * @return Boolean. Onnistuiko siirto vai ei.
     */
     public boolean onnistunutSiirto(String ruutunumero) {
         if (onValidiIndeksi(ruutunumero)) {
@@ -63,7 +66,10 @@ public class Pelilogiikka {
 
     /**
     * Tarkistaa, onko annettu ruutu vapaana. Ruutu on vapaa, jos
-    * syöte on väliltä [pienin indeksi, suurin indeksi].
+    * syöte on väliltä [pienin indeksi, suurin indeksi].        
+    * 
+    * @return Boolean. Onko annettu ruutunumero, joka sijaitsee laudalla.
+    * @param syote Annetun ruudun numero.
     */
     public boolean onValidiIndeksi(String syote) {
         try {
@@ -82,6 +88,10 @@ public class Pelilogiikka {
      * voittoon, O-merkin voittoon vai tasapeliin. Muuttaa 
      * voittotilanne-muuttujan arvon voittokondition perusteella.
      * Vaihtaa onKesken-arvon falseksi, sillä peli keskeytyy.
+     * 
+     * @param x Tarkistettavan ruudun x-koordinaatti.
+     * @param y Tarkistettavan ruudun y-koordinaatti.
+     * 
     */
     public void tarkistaVoittotilanne(int y, int x) {
         if (laskePisteet(y, x)) {
@@ -112,6 +122,10 @@ public class Pelilogiikka {
      * niiden summat. Jos vähintään yksi näistä summista on yhtä
      * suuri kuin sivun pituus (3), niin tämän vuoron pelaaja on
      * voittanut. Tällöin palauttaa true, muutoin false.
+     * 
+     * @param x Tarkistettavan ruudun x-koordinaatti.
+     * @param y Tarkistettavan ruudun y-koordinaatti.
+     * @return Boolean. Onko voitettu.
      */
     public boolean laskePisteet(int y, int x) {
         
@@ -165,7 +179,11 @@ public class Pelilogiikka {
     }
     
     /**
-     * Tarkistaa, onko annettu koordinaatti diagonaalilla.
+     * Tarkistaa, sijaitseeko annettujen koordinaattien ruutu diagonaalilla.
+     * 
+     * @param x Tarkistettavan ruudun x-koordinaatti.
+     * @param y Tarkistettavan ruudun y-koordinaatti.
+     * @return Boolean. Palauttaa true, jos koordinaatit ovat diagonaalilla, ja muutoin false.
      */
     public boolean onDiagonaalilla(int y, int x) {
         // diagonaali: tapaukset [0,2], [1,1] [2,0] 

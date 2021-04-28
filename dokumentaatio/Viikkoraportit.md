@@ -16,3 +16,6 @@ Ohjelma nyt tukee 0-2 tietokonepelaajan pelin. Koodia refaktoroitu ja siistitty 
 
 ## Viikko 5
 Alfa-beta-karsinta lisätty ja pieniä muutoksia mm. testeihin (2h). Dokumentaatiota (mm. testaus- sekä toteutusdokumentti) (5h). Tehty refaktorointia ja siistimistä (3h). Ohjelma suorittaa testit nyt kaksi kertaa nopeammin. Löydetty bugi, jossa ohjelma ei näytä estävän diagonaalilla ja käänteisdiagonaalilla tapahtuvaa voittoa. Tuskailtu (5h). Bugi korjattu.
+
+## Viikko 6
+Dokumentaation kirjoittamista ja testien parantamista.

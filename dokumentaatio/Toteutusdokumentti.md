@@ -16,6 +16,9 @@ Minimaxia kutsutaan ij-varatutRuudut kertaa = maksimissaan O(ij-1) = O(n^2) kert
 
 ### Mahdolliset puutteet ja parannusehdotukset
 - Tekoälypelaaja käyttää vapaiden ruutujen laskemiseen kahta sisäkkäistä for-looppia, joiden karsiminen on varmasti mahdollista.
+- Parempi tuki nxn -kokoisille laudoille. Mm. koko saadaan käyttäjän syötteenä, kahden tekoälyn 4x4 ja suuremmat pelilaudat suoriutuvat nopeammin.
+- Graafinen käyttöliittymä
 
 ### Tietolähteet
 [Video minimax-algoritmista ja alfa-beta-karsinnasta](https://www.youtube.com/watch?v=l-hh51ncgDI&ab_channel=SebastianLague) 
+[GeeksForGeeks alfa-beta-karsinnasta](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-4-alpha-beta-pruning/)

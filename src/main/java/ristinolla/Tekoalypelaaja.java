@@ -24,6 +24,9 @@ public class Tekoalypelaaja implements Pelaaja {
      * parhaan ruudun pisteet, korvataan paras ruutu tällä uudella 
      * ruudulla. Kun on käynyt koko laudan läpi, palauttaa parhaan 
      * ruudun numeron.
+     * 
+     * @param argLauta Lauta, jota käytetään seuraavan siirron laskemiseen
+     * @return palauttaa seuraavan parhaimman siirron ruutunumeron
      */
     public String otaSyote(String[][] argLauta) {
         String[][] lauta = argLauta;
@@ -66,6 +69,14 @@ public class Tekoalypelaaja implements Pelaaja {
      * pienimmän mahdollisen pistemäärän. Maksimoivan pelaajan jälkeen
      * on minimoivan pelaajan vuoro, jonka jälkeen on taas maksimoivan
      * pelaajan vuoro jne.
+     * 
+     * @param lauta Algoritmin käyttämä lauta.
+     * @param syvyys Rekursion syvyys. Käytetään nykyisen siiron pisteiden laskemiseen.
+     * @param maximoi True, jos on maksimoivan pelaajan vuoro, ja muutoin false. Maksimoiva pelaaja pyrkii saamaan mahdollisimman korkeat pisteet, ja minimoiva pelaaja pyrkii saamaan mahdollisimman alhaiset pisteet.
+     * @param alpha Suurin pistemäärä, joka tähän mennessä rekursiota on löydetty. Käytetään turhien minimax-kutsujen karsimiseen. Jos juuri lasketun ruudun pisteet ovat pienemmät kuin alpha, niin tämän ruudun seuraavia siirtoja (lapsia) ei tutkita.
+     * @param beta Pienin pistemäärä, joka tähän mennessä rekursiota on löydetty. Käytetään turhien minimax-kutsujen karsimiseen. Jos juuri lasketun ruudun pisteet ovat suuremmat kuin beta, niin tämän ruudun seuraavia siirtoja (lapsia) ei tutkita.
+     * @param vapaatRuudut Vapaiden ruutujen määrä. Käytetään tasapelitilanteen tunnistamiseen.
+     * @return Palauttaa parhaimmat pisteet
      */
     private int minimax(String[][] lauta, int syvyys, boolean maximoi, int alpha, int beta, int vapaatRuudut) {
         // tarkistaa, onko voitettu (= päästy gametreen loppuun) 
@@ -137,6 +148,12 @@ public class Tekoalypelaaja implements Pelaaja {
     /**
      * Tarkistaa, onko voitettu. Palauttaa voittaneen merkin merkkijonon,
      * tasapelin, tai pelin olevan vielä kesken.
+     * 
+     * @param lauta Tutkittava lauta.
+     * @param x Tarkistettavan ruudun x-koordinaatti.
+     * @param y Tarkistettavan ruudun y-koordinaatti.
+     * @param vapaatRuudut Vapaiden ruutujen lukumäärä.
+     * @return Voittotilanne pisteiden laskemisen jälkeen. 2: peli kesken, 1: oma voitto, 0: tasapeli ja -1: vastustajan voitto.
      */
     public int laskePisteet(String[][] lauta, int y, int x, int vapaatRuudut) {
         String tutkittavaMerkki = lauta[y][x];
@@ -205,6 +222,8 @@ public class Tekoalypelaaja implements Pelaaja {
     //TODO: pääse eroon tästä metodista -> vapaatRuudut parametriksi?
     /**
      * Apumetodi vapaiden ruutujen lukumäärän laskemiseen.
+     * @param lauta Tutkittava lauta.
+     * @return Palauttaa vapaiden ruutujen lukumäärän.
      */
     public int laskeVapaatRuudut(String[][] lauta) {
         int vapaatRuudut = sivunPituus*sivunPituus;
@@ -217,7 +236,12 @@ public class Tekoalypelaaja implements Pelaaja {
         }
         return vapaatRuudut;
     }
-    
+   
+    /**
+     * Muuttaa syotteen (merkki) integeriksi. 
+     * @param syote Syöte.
+     * @return Boolean. Palauttaa true, jos syöte on numero, muutoin palauttaa false. Palautettavat arvot: oma merkki: 1, vastustajan merkki: -1.
+     */
     public int merkkiToInt(String syote) {
         if (syote.equals(merkki)) {
             return 1;
@@ -226,8 +250,11 @@ public class Tekoalypelaaja implements Pelaaja {
     }
 
     /**
-    * Apumetodi diagonaaliruutujen tunnistamiseen.
-     */ 
+     * Apumetodi diagonaaliruutujen tunnistamiseen.
+     * @param x Tarkistettavan ruudun x-koordinaatti.
+     * @param y Tarkistettavan ruudun y-koordinaatti.
+     * @param Boolean. True, jos ruutu on diagonaalilla, muutoin false.
+    */ 
     public boolean onDiagonaalilla(int y, int x) {
         // diagonaali: tapaukset [0,2], [1,1] [2,0] 
         if (y+x == sivunPituus-1) {
@@ -242,6 +269,8 @@ public class Tekoalypelaaja implements Pelaaja {
 
     /**
      * Apumetodi numeroiden tunnistamiseen.
+     * @param syote Syöte.
+     * @return Boolean. Palauttaa true, jos syöte on numero, muutoin palauttaa false.
      */
     private boolean onNumero(String syote) {
         try {
@@ -252,17 +281,4 @@ public class Tekoalypelaaja implements Pelaaja {
         }
     }
 
-/*
-    public void tulostaLauta(String[][] lauta) {
-       String rivit = "";
-        for (int j = 0; j < lauta.length; j++) {
-            rivit += "  | ";
-            for (int i = 0; i < lauta.length; i++) {
-                rivit += lauta[j][i] + " | ";
-            }
-            rivit += "\n";
-        }        
-        System.out.println(rivit);
-    }
-*/
 }
