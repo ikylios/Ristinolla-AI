@@ -79,10 +79,21 @@ public class LogiikkaTest {
     
     @Test
     public void xVoittoDiagonaalilla() {
-        String syöte = "845276";
+        String syöte = "4653078";
+        for (int i = 0; i < syöte.length(); i++) {
+            peli.onnistunutSiirto(syöte.substring(i, i+1));
+        }
+        assertEquals(1, peli.kukaVoitti());
+    }
+
+    @Test
+    public void oVoittoKDiagonaalilla() {
+        String syöte = "043612";
         for (int i = 0; i < syöte.length(); i++) {
             peli.onnistunutSiirto(syöte.substring(i, i+1));
         }
         assertEquals(-1, peli.kukaVoitti());
     }
+
+
 }

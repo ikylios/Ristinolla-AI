@@ -138,7 +138,6 @@ public class Tekoalypelaaja implements Pelaaja {
      * Tarkistaa, onko voitettu. Palauttaa voittaneen merkin merkkijonon,
      * tasapelin, tai pelin olevan vielä kesken.
      */
-//    public String laskePisteet(String[][] lauta, int y, int x) {
     public int laskePisteet(String[][] lauta, int y, int x, int vapaatRuudut) {
         String tutkittavaMerkki = lauta[y][x];
         

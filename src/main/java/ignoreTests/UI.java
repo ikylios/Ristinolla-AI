@@ -47,7 +47,8 @@ public class UI {
     }
 
     public void pelaa() {
-        while (peli.onKesken()) {
+        pelataan:
+        while(true) {
             for (Pelaaja pelaaja : pelaajat) {
                 tulostaLauta();
                 System.out.println(peli.getVuoro() + "-merkin vuoro.");
@@ -60,7 +61,7 @@ public class UI {
                     }
                 }
                 if (!peli.onKesken()) {
-                    break;
+                    break pelataan;
                 }
             }
         }
@@ -70,15 +71,9 @@ public class UI {
     public void peliOhi() {
         String lopputulos = "Jotain outoa tapahtui.";
         switch (peli.kukaVoitti()) {
-            case 0: 
-                lopputulos = "Tasapeli!";
-                break;
-            case 1: 
-                lopputulos = "X voitti!";
-                break;
-            case -1: 
-                lopputulos = "O voitti!";
-                break;
+            case 0: lopputulos = "Tasapeli!"; break;
+            case 1: lopputulos = "X voitti!"; break;
+            case -1: lopputulos = "O voitti!"; break;
         }
         System.out.println(lopputulos);
         System.out.println("Lopullinen lauta:\n");

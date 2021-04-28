@@ -4,7 +4,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
-import java.util.Random;
 import ristinolla.*;
 
 public class TekoalypelaajaTest {
@@ -64,8 +63,6 @@ public class TekoalypelaajaTest {
 
     @Test
     public void tasapeliKahdenAInPelissa() {
-        int sivunPituus = 3;
-//        Pelilogiikka peli = new Pelilogiikka(sivunPituus);
         Pelilogiikka peli = new Pelilogiikka();
         Tekoalypelaaja t2 = new Tekoalypelaaja("X");
         Tekoalypelaaja[] pelaajat = new Tekoalypelaaja[] {t2, t};
@@ -80,6 +77,31 @@ public class TekoalypelaajaTest {
         }            
 
         assertEquals(0, peli.kukaVoitti());
+    }
+    
+    @Test
+    public void kahdenAIPeliKestaaAlleSekunnin() {
+        Pelilogiikka peli = new Pelilogiikka();
+        Tekoalypelaaja t2 = new Tekoalypelaaja("X");
+        Tekoalypelaaja[] pelaajat = new Tekoalypelaaja[] {t2, t};
+
+        long aloitushetki = System.nanoTime();
+
+        while (peli.onKesken()) {
+            for (Tekoalypelaaja p : pelaajat) {
+                peli.onnistunutSiirto(p.otaSyote(peli.getLauta()));
+                if (!peli.onKesken()) {
+                    break;
+                }
+            }
+        }
+
+        long lopetushetki = System.nanoTime();
+
+        long kulunutAika = lopetushetki - aloitushetki;
+        long sekunti = 1000000000L;
+
+        assertTrue(kulunutAika <= sekunti);
     }
 
 }
