@@ -30,19 +30,19 @@ public class Tekoalypelaaja implements Pelaaja {
      */
     public String otaSyote(String[][] argLauta) {
         String[][] lauta = argLauta;
-        int vapaatR = laskeVapaatRuudut(lauta);
-        
         sivunPituus = lauta.length;
         maksimivuorot = sivunPituus*sivunPituus+1;
+        int vapaatRuudut = laskeVapaatRuudut(lauta);
+        
         String parasRuutu = "";
-        int parasTulos = -100000;
+        int parasTulos = -1000;
         for (int j = 0; j < sivunPituus; j++) {
             for (int i = 0; i < sivunPituus; i++) {
                 // ruutu on vapaa, jos ruudun sisältö on numero
                 if (onNumero(lauta[j][i])) { 
                     String ruutunumero = lauta[j][i];
                     lauta[j][i] = merkki;
-                    int tulos = minimax(lauta, 0, false, -100000, 100000, vapaatR-1);
+                    int tulos = minimax(lauta, 0, false, -1000, 1000, vapaatRuudut-1);
                     lauta[j][i] = ruutunumero;
                     if (tulos > parasTulos) {                        
                         parasRuutu = lauta[j][i];
@@ -84,13 +84,12 @@ public class Tekoalypelaaja implements Pelaaja {
             for (int i = 0; i < sivunPituus; i++) {
                 if (!onNumero(lauta[j][i])) {
                     int voittaja = laskePisteet(lauta, j, i, vapaatRuudut);                                        
-                    if (voittaja != 2) {                // peli on päättynyt jotenkin
-                        int pelinPisteet = 0;           // oletusarvoisesti tasapeli 
+                    if (voittaja != 2) {
                         switch (voittaja) {
-                            case 1: pelinPisteet = maksimivuorot - syvyys;      // oman merkin pelaaja on voittanut
-                            case -1: pelinPisteet = -maksimivuorot + syvyys;    // vastustaja on voittanut
+                            case 1: return maksimivuorot - syvyys;      // oman merkin pelaaja on voittanut
+                            case -1: return -maksimivuorot + syvyys;    // vastustaja on voittanut
+                            case 0: return 0;
                         }
-                        return pelinPisteet;
                     }
                 }     
             }
@@ -98,7 +97,7 @@ public class Tekoalypelaaja implements Pelaaja {
         
         
         if (maximoi) {
-            int parasTulos = -100000;
+            int parasTulos = -1000;
             for (int j = 0; j < sivunPituus; j++) {
                 for (int i = 0; i < sivunPituus; i++) {
                     if (onNumero(lauta[j][i])) {
@@ -108,12 +107,12 @@ public class Tekoalypelaaja implements Pelaaja {
                         lauta[j][i] = ruutunumero;
                         if (tulos > parasTulos) {
                             parasTulos = tulos;
-                        }
-                        if (alpha < parasTulos) {
-                            alpha = parasTulos;
-                        }
-                        if (alpha >= beta) {
-                            return parasTulos;
+                            if (alpha < parasTulos) {
+                                alpha = parasTulos;
+                            }
+                            if (beta <= alpha) {
+                                return parasTulos;
+                            }
                         }
                     }
                 }
@@ -121,7 +120,7 @@ public class Tekoalypelaaja implements Pelaaja {
             return parasTulos;
 
         } else {
-            int parasTulos = 100000;
+            int parasTulos = 1000;
             for (int j = 0; j < sivunPituus; j++) {
                 for (int i = 0; i < sivunPituus; i++) {
                     if (onNumero(lauta[j][i])) {
@@ -131,12 +130,12 @@ public class Tekoalypelaaja implements Pelaaja {
                         lauta[j][i] = ruutunumero;
                         if (tulos < parasTulos) {
                             parasTulos = tulos;
-                        }
-                        if (beta > parasTulos) {
-                            beta = parasTulos;
-                        }
-                        if (beta <= alpha) {
-                            return parasTulos;
+                            if (beta > parasTulos) {
+                                beta = parasTulos;
+                            }
+                            if (beta <= alpha) {
+                                return parasTulos;
+                            }
                         }
                     }
                 }
@@ -146,8 +145,12 @@ public class Tekoalypelaaja implements Pelaaja {
     }
 
     /**
-     * Tarkistaa, onko voitettu. Palauttaa voittaneen merkin merkkijonon,
-     * tasapelin, tai pelin olevan vielä kesken.
+     * Tarkistaa, onko voitettu. Palauttaa voittaneen merkin 
+     * merkkijonon, tasapelin, tai pelin olevan vielä kesken. 
+     * Koko laudan läpikäymisen sijaan (joka on hidasta) 
+     * tarkistaa annetun ruudun rivin, sarakkeen ja mahdollisten 
+     * diagonaalien summat. Jos mikään näistä summista on yhtäsuuri 
+     * kuin sivunPituus, tämän merkin pelaaja on voittanut.
      * 
      * @param lauta Tutkittava lauta.
      * @param x Tarkistettavan ruudun x-koordinaatti.
