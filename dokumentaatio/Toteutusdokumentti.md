@@ -15,8 +15,8 @@ Minimaxin analyysi, yksittäinen kutsu:
 Minimaxia kutsutaan ij-varatutRuudut kertaa = maksimissaan O(ij-1) = O(n^2) kertaa. Siis tekoälyn siirtoon menee aikaa O(n^2)\*O(n^2) - alfa-beta-karsitut minimax-kutsut = O(n^4).
 
 ### Mahdolliset puutteet ja parannusehdotukset
-- Tekoälypelaaja käyttää vapaiden ruutujen laskemiseen kahta sisäkkäistä for-looppia, joiden karsiminen on varmasti mahdollista.
-- Parempi tuki nxn -kokoisille laudoille. Mm. koko saadaan käyttäjän syötteenä, kahden tekoälyn 4x4 ja suuremmat pelilaudat suoriutuvat nopeammin.
+- Tekoälypelaaja käyttää vapaiden ruutujen laskemiseen kahta sisäkkäistä for-looppia, joiden karsiminen on varmasti mahdollista, mutta en saanut toteutettua kurssin puitteissa.
+- Parempi tuki nxn -kokoisille laudoille. Koodi tukee ajatusta jo melko hyvin, mutta parannettavaa on. Parannukset sisältävät esim. laudan koon asetus käyttäjän syötteestä, kahden tekoälyn 4x4 ja suuremmat pelilaudat nopeampi suoritus.
 - Graafinen käyttöliittymä
 
 ### Tietolähteet

@@ -12,4 +12,5 @@ Käyttää suurimmissa osissa tyhjää lautaa, tai testikohtaisia erilaisia laut
 Käyttää testikohtaisesti erilaisia lautatilanteita. Testataan
 - estää vastustajan voiton sarakkeella, rivillä, diagonaalilla sekä käänteisdiagonaalilla.
 - päätyy tasapeliin kahden tekoälyn pelissä
-- kahden tekoalyn peli kestää alle sekunnin
+- tekoalyn siirto kestää enintään noin sekunnin - mitä enemmän vapaita paikkoja laudalla on, sitä kauemmin minimax kestää: pelin ensimmäinen siirto kestää pisimpään
+- kahden tekoalyn peli kestää alle viisi sekuntia 

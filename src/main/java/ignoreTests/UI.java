@@ -23,24 +23,26 @@ public class UI {
             syote = lukija.nextLine();            
             try {                
                 int syoteArvo = Integer.parseInt(syote);
-                
-                Pelaaja p1 = new Tekoalypelaaja("X");
-                Pelaaja p2 = new Tekoalypelaaja("O");
-                if (syoteArvo > 0) {
-                    p1 = new Ihmispelaaja(lukija);
-                    if (syoteArvo == 2) {
-                        p2 = new Ihmispelaaja(lukija);
+
+                if (syoteArvo >= 0 && syoteArvo <= 2) {
+                    Pelaaja p1 = new Tekoalypelaaja("X");
+                    Pelaaja p2 = new Tekoalypelaaja("O");
+                    if (syoteArvo > 0) {
+                        p1 = new Ihmispelaaja(lukija);
+                        if (syoteArvo == 2) {
+                            p2 = new Ihmispelaaja(lukija);
+                        }
                     }
+                    pelaajat = new Pelaaja[] {p1, p2};
+                    break;                
                 }
-                pelaajat = new Pelaaja[] {p1, p2};
-                break;                
+                
             } catch (Exception e) {
                 System.out.println("\nEi sallittu arvo.\n");
             }
         }    
 
         System.out.println("Aloitetaan!\n");
-//        peli = new Pelilogiikka(sivunPituus); 
         peli = new Pelilogiikka(); 
         System.out.println("---------------------\n");
         pelaa();
