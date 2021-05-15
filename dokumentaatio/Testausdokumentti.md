@@ -14,3 +14,7 @@ Käyttää testikohtaisesti erilaisia lautatilanteita. Testataan
 - päätyy tasapeliin kahden tekoälyn pelissä
 - tekoalyn siirto kestää enintään noin sekunnin - mitä enemmän vapaita paikkoja laudalla on, sitä kauemmin minimax kestää: pelin ensimmäinen siirto kestää pisimpään
 - kahden tekoalyn peli kestää alle viisi sekuntia 
+
+### Empiiristä testausta
+Kahden tekoälyn pelissä tulostetaan jokaisen siirtoon kestänyt aika, kuvastaa hyvin suorituksen nopeutumista mahdollisten siirtojen vähentyessä:
+![ajankulutus.png](https://github.com/ikylios/Ristinolla-AI/blob/main/dokumentaatio/ajankulutus.png)

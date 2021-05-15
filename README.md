@@ -6,7 +6,7 @@ Ristinollapeli 0-2 hengelle terminaalissa :)
 
 ## Käyttöohje
 
-Lataa projekti. Komento `gradle run -q --console=plain` projektin juurikansiossa aloittaa suorituksen.
+Lataa projekti. Komento `gradle run -q --console=plain` projektin juurikansiossa aloittaa suorituksen. Vaihtoehtoisesti `ristinolla-all.jar` sijaitsee kansiossa `build/libs`, suoritus alkaa komennolla `java -jar ristinolla-all.jar`. Testit ajetaan juuritiedostossa komennolla `gradle test`.
 
 ## Dokumentaatio
 

@@ -3,6 +3,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'checkstyle'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
 mainClassName = 'ignoreTests.Main'
